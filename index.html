@@ -1,281 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassSync | Academic Honor & Collaboration</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/pull/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4461f2;
-            --accent: #ffc107;
-            --dark: #121212;
-            --light: #f8f9fa;
-            --glass: rgba(255, 255, 255, 0.1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClassSync | Academic Excellence</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-        body {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+<style>
+:root{
+    --primary:#4461f2;
+    --accent:#ffc107;
+    --dark:#121212;
+    --light:#f8f9fa;
+}
 
-        /* --- NAVIGATION --- */
-        nav {
-            padding: 20px 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        .logo span { color: var(--accent); }
+body{
+    background:linear-gradient(135deg,#1e3c72 0%,#2a5298 100%);
+    color:white;
+    overflow-x:hidden;
+}
 
-        /* --- HERO SECTION --- */
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
-            background-blend-mode: overlay;
-            background-color: rgba(0, 0, 0, 0.6);
-        }
+/* NAVIGATION */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 10%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,0.3);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+}
 
-        h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            animation: fadeInUp 1s ease;
-        }
+.logo{
+    font-size:1.6rem;
+    font-weight:800;
+}
 
-        p.subtitle {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 40px;
-            color: #ddd;
-        }
+.logo span{
+    color:var(--accent);
+}
 
-        /* --- BUTTONS --- */
-        .cta-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+.btn{
+    padding:12px 28px;
+    border-radius:50px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+}
 
-        .btn {
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+.btn-primary{
+    background:var(--primary);
+    color:white;
+    box-shadow:0 10px 25px rgba(68,97,242,0.4);
+}
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 10px 20px rgba(68, 97, 242, 0.3);
-        }
+.btn-outline{
+    border:2px solid white;
+    color:white;
+}
 
-        .btn-outline {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-        }
+.btn:hover{
+    transform:translateY(-4px);
+    opacity:0.9;
+}
 
-        .btn:hover {
-            transform: translateY(-5px);
-            opacity: 0.9;
-        }
+/* HERO */
+header{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:0 20px;
+    background:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+    background-blend-mode:overlay;
+    background-color:rgba(0,0,0,0.65);
+}
 
-        /* --- FEATURES --- */
-        .features {
-            padding: 100px 10%;
-            background: var(--light);
-            color: var(--dark);
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
+header h1{
+    font-size:3.5rem;
+    font-weight:800;
+    margin-bottom:20px;
+}
 
-        .feature-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: 0.3s;
-        }
+.subtitle{
+    max-width:600px;
+    margin-bottom:40px;
+    color:#ddd;
+}
 
-        .feature-card:hover { transform: translateY(-10px); }
+.cta-group{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
 
-        .feature-card i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
+/* FEATURES */
+.features{
+    padding:100px 10%;
+    background:var(--light);
+    color:var(--dark);
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:30px;
+}
 
-        /* --- APP PREVIEW (MOCKUP) --- */
-        .preview {
-            padding: 100px 10%;
-            text-align: center;
-        }
+.feature-card{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.05);
+    text-align:center;
+    transition:0.3s;
+}
 
-        .mockup {
-            width: 300px;
-            height: 600px;
-            background: #333;
-            border: 12px solid #444;
-            border-radius: 40px;
-            margin: 0 auto;
-            position: relative;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
-            overflow: hidden;
-        }
+.feature-card:hover{
+    transform:translateY(-10px);
+}
 
-        .mockup-content {
-            background: #121212;
-            height: 100%;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
+.feature-card i{
+    font-size:2.5rem;
+    color:var(--primary);
+    margin-bottom:20px;
+}
 
-        /* --- FOOTER --- */
-        footer {
-            padding: 50px 10%;
-            background: #0a0a0a;
-            text-align: center;
-        }
+/* PREVIEW */
+.preview{
+    padding:100px 10%;
+    text-align:center;
+}
 
-        .footer-links {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
+.preview h2{
+    font-size:2.3rem;
+    margin-bottom:50px;
+}
 
-        .footer-links a {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
+/* PHONE MOCKUP */
+.phone{
+    width:320px;
+    height:640px;
+    background:#111;
+    border:14px solid #222;
+    border-radius:40px;
+    margin:0 auto;
+    box-shadow:0 50px 100px rgba(0,0,0,0.6);
+    overflow:hidden;
+    position:relative;
+}
 
-        .footer-links a:hover { color: white; }
+.phone img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+/* FOOTER */
+footer{
+    background:#0a0a0a;
+    padding:50px 10%;
+    text-align:center;
+}
 
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-        }
-    </style>
+.footer-links{
+    margin:20px 0;
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+    color:#888;
+    text-decoration:none;
+}
+
+.footer-links a:hover{
+    color:white;
+}
+
+@media(max-width:768px){
+    header h1{
+        font-size:2.3rem;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <nav>
-        <div class="logo">CLASS<span>SYNC</span></div>
-        <a href="#download" class="btn btn-primary" style="padding: 8px 20px; font-size: 0.9rem;">Get App</a>
-    </nav>
+<!-- NAVBAR -->
+<nav>
+    <div class="logo">CLASS<span>SYNC</span></div>
+    <a href="#download" class="btn btn-primary">Get App</a>
+</nav>
 
-    <header>
-        <h1>Academic Excellence, Synergized.</h1>
-        <p class="subtitle">The ultimate platform for Students and Teachers to collaborate, track honor scores, and claim global achievements.</p>
-        
-        <div class="cta-group">
-            <!-- Replace href with your actual hosted web app link or APK download -->
-            <a href="https://your-app-link.web.app" class="btn btn-primary">
-                <i class="fas fa-globe"></i> Open Web App
-            </a>
-            <a href="#download" class="btn btn-outline">
-                <i class="fas fa-download"></i> Download APK
-            </a>
-        </div>
-    </header>
+<!-- HERO -->
+<header>
+    <h1>Academic Excellence, Synergized.</h1>
+    <p class="subtitle">
+        The ultimate platform for Students and Teachers to collaborate,
+        track honor scores, and claim achievements.
+    </p>
 
-    <section class="features">
-        <div class="feature-card">
-            <i class="fas fa-trophy"></i>
-            <h3>Leaderboards</h3>
-            <p>Compete globally or within your department. Real-time ranking updates based on honor points.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-certificate"></i>
-            <h3>Digital Honors</h3>
-            <p>Achieve Top 3 status and instantly generate verified PDF certificates for your profile.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-moon"></i>
-            <h3>Dark Mode</h3>
-            <p>Beautifully designed for focus. Persistent theme settings that remember your preference.</p>
-        </div>
-    </section>
+    <div class="cta-group">
+        <a href="https://class-sync-eb06a.web.app/" target="_blank" class="btn btn-primary">
+            <i class="fas fa-globe"></i> Open Web App
+        </a>
 
-    <section class="preview" id="download">
-        <h2 style="margin-bottom: 50px; font-size: 2.5rem;">Experience the Interface</h2>
-        <div class="mockup">
-            <div class="mockup-content">
-                <div style="height: 20px; background: #222; border-radius: 10px; margin-bottom: 20px;"></div>
-                <div style="flex: 1; background: #1e1e1e; border-radius: 10px; padding: 15px;">
-                    <div style="width: 100%; height: 10px; background: #333; margin-bottom: 10px;"></div>
-                    <div style="width: 80%; height: 10px; background: #333; margin-bottom: 30px;"></div>
-                    
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--primary);"></div>
-                        <div style="flex: 1; height: 40px; background: #222; border-radius: 5px;"></div>
-                    </div>
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--accent);"></div>
-                        <div style="flex: 1; height: 40px; background: #222; border-radius: 5px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div style="margin-top: 50px;">
-            <p>Current Version: <strong>1.0.2</strong></p>
-            <p style="color: #ccc;">Secure login via Firebase Authentication</p>
-        </div>
-    </section>
+        <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing"
+           target="_blank"
+           class="btn btn-outline">
+            <i class="fas fa-download"></i> Download APK
+        </a>
+    </div>
+</header>
 
-    <footer>
-        <div class="logo">CLASS<span>SYNC</span></div>
-        <div class="footer-links">
-            <a href="#">Home</a>
-            <a href="mailto:support@classsync.com">Support</a>
-            <a href="https://your-privacy-policy-link.com">Privacy Policy</a>
-        </div>
-        <p style="color: #555; font-size: 0.8rem; margin-top: 20px;">&copy; 2024 ClassSync. All rights reserved.</p>
-    </footer>
+<!-- FEATURES -->
+<section class="features">
+    <div class="feature-card">
+        <i class="fas fa-trophy"></i>
+        <h3>Leaderboards</h3>
+        <p>Compete department-wise and semester-wise with real-time ranking updates.</p>
+    </div>
+
+    <div class="feature-card">
+        <i class="fas fa-certificate"></i>
+        <h3>Digital Honors</h3>
+        <p>Generate verified certificates instantly when you reach top rankings.</p>
+    </div>
+
+    <div class="feature-card">
+        <i class="fas fa-moon"></i>
+        <h3>Dark Mode</h3>
+        <p>Beautiful, focus-driven interface with persistent theme settings.</p>
+    </div>
+</section>
+
+<!-- PREVIEW SECTION -->
+<section class="preview" id="download">
+    <h2>Experience the Interface</h2>
+
+    <div class="phone">
+        <!-- Replace this image name with your actual file name -->
+        <img src="phone-preview.png" alt="ClassSync App Preview">
+    </div>
+
+    <div style="margin-top:40px;">
+        <p>Current Version: <strong>1.0.2</strong></p>
+        <p style="color:#ccc;">Secure login via Firebase Authentication</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="logo">CLASS<span>SYNC</span></div>
+
+    <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="mailto:sanukmpro@gmail.com">Support</a>
+        <a href="https://drive.google.com/file/d/17bnLVwGuq52Df73aMqeqQylUk1V5Baqr/view?usp=sharing" target="_blank">
+            Privacy Policy
+        </a>
+    </div>
+
+    <p style="color:#555;font-size:0.8rem;margin-top:20px;">
+        © 2024 ClassSync. All rights reserved.
+    </p>
+</footer>
 
 </body>
 </html>
