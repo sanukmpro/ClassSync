@@ -47,13 +47,9 @@ nav{
     z-index:1000;
 }
 
-.logo{
-    font-size:1.6rem;
-    font-weight:800;
-}
-
-.logo span{
-    color:var(--accent);
+.logo img{
+    height:45px;
+    width:auto;
 }
 
 .btn{
@@ -182,6 +178,11 @@ footer{
     text-align:center;
 }
 
+.footer-logo img{
+    height:45px;
+    margin-bottom:20px;
+}
+
 .footer-links{
     margin:20px 0;
     display:flex;
@@ -211,7 +212,9 @@ footer{
 
 <!-- NAVBAR -->
 <nav>
-    <div class="logo">CLASS<span>SYNC</span></div>
+    <div class="logo">
+        <img src="app_icon.png" alt="ClassSync Logo">
+    </div>
     <a href="#download" class="btn btn-primary">Get App</a>
 </nav>
 
@@ -262,7 +265,6 @@ footer{
     <h2>Experience the Interface</h2>
 
     <div class="phone">
-        <!-- Replace this image name with your actual file name -->
         <img src="phone-preview.png" alt="ClassSync App Preview">
     </div>
 
@@ -274,7 +276,9 @@ footer{
 
 <!-- FOOTER -->
 <footer>
-    <div class="logo">CLASS<span>SYNC</span></div>
+    <div class="footer-logo">
+        <img src="app_icon.png" alt="ClassSync Logo">
+    </div>
 
     <div class="footer-links">
         <a href="#">Home</a>
