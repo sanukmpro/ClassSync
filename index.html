@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassSync | The Future of Academic Synergy</title>
+    <title>ClassSync | Academic Synergy Redefined</title>
     
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --accent: #6366f1;
-            --accent-glow: rgba(99, 102, 241, 0.5);
-            --bg-dark: #0f172a;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --secondary: #a855f7;
+            --bg: #030712;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f8fafc;
             --text-dim: #94a3b8;
         }
 
@@ -25,31 +25,27 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
+            cursor: default;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
-            line-height: 1.6;
+            selection-background: var(--primary);
         }
 
-        /* --- Animated Background Elements --- */
-        .blob {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            filter: blur(80px);
+        /* --- Custom Mouse Glow --- */
+        #cursor-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
             border-radius: 50%;
-            z-index: -1;
-            opacity: 0.15;
-            animation: move 20s infinite alternate;
-        }
-
-        @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(20%, 20%); }
+            pointer-events: none;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
         }
 
         /* --- Navigation --- */
@@ -57,413 +53,415 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 25px 8%;
+            padding: 20px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(15px);
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--border);
         }
 
-        .logo-area {
+        .logo {
             display: flex;
             align-items: center;
             gap: 12px;
             font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: -1px;
+            font-size: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--text-dim));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .logo-area img {
-            height: 45px;
-            filter: drop-shadow(0 0 10px var(--accent-glow));
-        }
+        .logo img { height: 45px; }
 
         /* --- Hero Section --- */
         header {
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            padding: 100px 8% 0;
+            text-align: center;
+            padding: 150px 8% 100px;
             position: relative;
         }
 
-        .hero-content {
-            flex: 1;
-            max-width: 650px;
-        }
-
-        .hero-tag {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 6px 16px;
+        .hero-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 8px 20px;
             border-radius: 100px;
             font-size: 0.85rem;
-            color: var(--accent);
+            color: var(--primary);
             font-weight: 600;
-            display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            animation: fadeInDown 1s ease;
         }
 
         h1 {
-            font-size: 4.5rem;
-            line-height: 1.1;
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
             font-weight: 800;
-            margin-bottom: 25px;
-            background: linear-gradient(to bottom right, #fff 30%, #94a3b8 100%);
+            margin-bottom: 30px;
+            letter-spacing: -3px;
+        }
+
+        h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .subtitle {
+        .hero-sub {
             font-size: 1.2rem;
             color: var(--text-dim);
-            margin-bottom: 40px;
-            max-width: 500px;
+            max-width: 700px;
+            margin-bottom: 50px;
         }
 
-        /* --- Buttons --- */
-        .cta-group {
+        .btn-group {
             display: flex;
-            gap: 15px;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .btn {
-            padding: 16px 32px;
-            border-radius: 14px;
+            padding: 18px 38px;
+            border-radius: 16px;
             text-decoration: none;
             font-weight: 700;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1rem;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .btn-main {
-            background: var(--accent);
+        .btn-p {
+            background: var(--primary);
             color: white;
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px -10px var(--primary-glow);
         }
 
-        .btn-main:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.5);
-        }
+        .btn-p:hover { transform: translateY(-5px); box-shadow: 0 30px 60px -10px var(--primary-glow); }
 
-        .btn-sec {
-            background: var(--glass);
+        .btn-s {
+            background: var(--card-bg);
             color: white;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border);
         }
 
-        .btn-sec:hover {
-            background: var(--glass-border);
-        }
+        .btn-s:hover { background: var(--border); }
 
-        /* --- Hero Visual --- */
-        .hero-visual {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            perspective: 1000px;
-        }
-
-        .mockup-container {
-            width: 300px;
-            height: 600px;
-            background: #000;
-            border: 12px solid #1e293b;
-            border-radius: 45px;
-            overflow: hidden;
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-            transform: rotateY(-15deg) rotateX(5deg);
-            transition: 0.5s;
-        }
-
-        .mockup-container:hover {
-            transform: rotateY(0deg) rotateX(0deg) scale(1.05);
-        }
-
-        .mockup-container img {
+        /* --- 3D UI SHOWCASE --- */
+        .showcase-container {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            padding: 100px 0;
+            perspective: 2000px;
+            background: radial-gradient(circle at center, rgba(99,102,241,0.05) 0%, transparent 70%);
         }
 
-        /* --- Features Section --- */
-        .section-padding {
-            padding: 120px 8%;
+        .ui-scroll-track {
+            display: flex;
+            gap: 40px;
+            padding: 50px;
+            width: max-content;
+            animation: scrollUI 60s linear infinite;
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 80px;
+        .ui-scroll-track:hover { animation-play-state: paused; }
+
+        @keyframes scrollUI {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        .section-title h2 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .grid-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            padding: 50px 40px;
-            border-radius: 30px;
-            transition: 0.4s;
+        .ui-card {
+            width: 320px;
+            height: 580px;
+            background: #000;
+            border-radius: 40px;
+            border: 8px solid #1e293b;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            transition: 0.5s ease;
+            transform-style: preserve-3d;
         }
 
-        .card:hover {
-            background: rgba(255,255,255,0.06);
-            border-color: var(--accent);
-            transform: translateY(-10px);
+        .ui-card:hover {
+            transform: scale(1.05) translateY(-20px) rotateX(5deg);
+            border-color: var(--primary);
         }
 
-        .card i {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--accent), #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 25px;
-            display: block;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .card p {
-            color: var(--text-dim);
-            font-size: 1rem;
-        }
-
-        /* --- Stats Banner --- */
-        .stats-banner {
-            background: var(--accent);
-            padding: 40px 0;
+        .ui-content {
+            height: 100%;
+            width: 100%;
             display: flex;
-            justify-content: space-around;
-            transform: skewY(-2deg);
-            margin: 100px 0;
-        }
-
-        .stat-item {
-            transform: skewY(2deg);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
             text-align: center;
         }
 
-        .stat-val {
-            font-size: 2.5rem;
-            font-weight: 800;
-            display: block;
+        .ui-content i { font-size: 4rem; margin-bottom: 20px; color: var(--primary); }
+        .ui-content h4 { font-size: 1.5rem; margin-bottom: 10px; }
+        .ui-content p { font-size: 0.9rem; color: var(--text-dim); }
+
+        /* UI Gradients */
+        .grad-1 { background: linear-gradient(135deg, #1e1b4b, #312e81); }
+        .grad-2 { background: linear-gradient(135deg, #064e3b, #065f46); }
+        .grad-3 { background: linear-gradient(135deg, #4c1d95, #5b21b6); }
+        .grad-4 { background: linear-gradient(135deg, #78350f, #92400e); }
+        .grad-5 { background: linear-gradient(135deg, #831843, #9d174d); }
+
+        /* --- Live Leaderboard Preview --- */
+        .leaderboard-preview {
+            padding: 100px 8%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
         }
 
-        .stat-label {
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            opacity: 0.8;
+        .lb-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
         }
+
+        .lb-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .lb-row:last-child { border: none; }
+
+        .lb-rank { font-weight: 800; color: var(--primary); width: 30px; }
+        .lb-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); }
+        .lb-name { flex: 1; font-weight: 600; }
+        .lb-score { color: var(--secondary); font-weight: 800; }
 
         /* --- Footer --- */
         footer {
-            padding: 80px 8% 40px;
-            background: #070b14;
-            border-top: 1px solid var(--glass-border);
+            padding: 100px 8% 50px;
+            border-top: 1px solid var(--border);
+            background: #020617;
         }
 
-        .footer-grid {
+        .footer-main {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 60px;
+            gap: 100px;
+            margin-bottom: 80px;
         }
 
-        .footer-logo-desc p {
-            color: var(--text-dim);
-            margin-top: 20px;
-            max-width: 300px;
+        .footer-links h5 { font-size: 1.2rem; margin-bottom: 25px; }
+        .footer-links a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 15px; transition: 0.3s; }
+        .footer-links a:hover { color: var(--primary); transform: translateX(5px); }
+
+        /* --- Animations --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .footer-col h4 {
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-        }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .footer-col a {
-            display: block;
-            color: var(--text-dim);
-            text-decoration: none;
-            margin-bottom: 12px;
-            transition: 0.3s;
-        }
-
-        .footer-col a:hover {
-            color: var(--accent);
-            padding-left: 5px;
-        }
-
-        .copyright {
-            text-align: center;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-            padding-top: 40px;
-            border-top: 1px solid var(--glass-border);
-        }
-
-        /* --- Responsive --- */
-        @media (max-width: 1100px) {
-            h1 { font-size: 3.5rem; }
-            header { flex-direction: column; text-align: center; padding-top: 180px; }
-            .hero-content { margin-bottom: 80px; display: flex; flex-direction: column; align-items: center;}
-            .cta-group { justify-content: center; }
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 2.8rem; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .cta-group { flex-direction: column; width: 100%; }
-            .btn { justify-content: center; }
-        }
-
-        /* Scroll Animation Class */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        @media (max-width: 968px) {
+            .leaderboard-preview { grid-template-columns: 1fr; }
+            .footer-main { grid-template-columns: 1fr; gap: 50px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="blob" style="top: 10%; left: -10%;"></div>
-    <div class="blob" style="bottom: 10%; right: -10%; background: #a855f7;"></div>
+    <div id="cursor-glow"></div>
 
     <nav>
-        <div class="logo-area">
+        <div class="logo">
             <img src="app_icon.png" alt="ClassSync">
             <span>ClassSync</span>
         </div>
-        <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-main" style="padding: 10px 24px; font-size: 0.9rem;">
-            Get App
-        </a>
+        <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-p" style="padding: 12px 25px; font-size: 0.9rem;">Get App</a>
     </nav>
 
     <header>
-        <div class="hero-content">
-            <div class="hero-tag">✨ Now with Digital Honors v1.0.2</div>
-            <h1>The Hub of Academic <span style="color: var(--accent);">Synergy.</span></h1>
-            <p class="subtitle">
-                A high-performance ecosystem for modern scholars and educators. Streamline resources, dominate leaderboards, and verify your achievements.
-            </p>
-            <div class="cta-group">
-                <a href="https://class-sync-eb06a.web.app/" class="btn btn-main">
-                    <i class="fas fa-rocket"></i> Launch Web Portal
-                </a>
-                <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-sec">
-                    <i class="fab fa-android"></i> Download APK
-                </a>
-            </div>
-        </div>
-
-        <div class="hero-visual">
-            <div class="mockup-container">
-                <img src="phone-preview.png" alt="App Preview">
-            </div>
+        <div class="hero-badge">VERSION 1.0.2 NOW LIVE</div>
+        <h1>Academic <span>Synergy</span>,<br>Simplified.</h1>
+        <p class="hero-sub">The all-in-one ecosystem for students and teachers. Share resources, verify achievements, and rise through the ranks.</p>
+        <div class="btn-group">
+            <a href="https://class-sync-eb06a.web.app/" class="btn btn-p">
+                <i class="fas fa-browser"></i> Launch Web Portal
+            </a>
+            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-s">
+                <i class="fab fa-android"></i> Download APK
+            </a>
         </div>
     </header>
 
-    <div class="stats-banner">
-        <div class="stat-item">
-            <span class="stat-val">100%</span>
-            <span class="stat-label">Secure Auth</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-val">Realtime</span>
-            <span class="stat-label">Leaderboards</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-val">Instant</span>
-            <span class="stat-label">Certification</span>
+    <div class="showcase-container reveal">
+        <h2 style="text-align: center; margin-bottom: 50px; font-size: 2.5rem; font-weight: 800;">Experience the Interface</h2>
+        <div class="ui-scroll-track">
+            <!-- Screen 1: Student Home -->
+            <div class="ui-card grad-1">
+                <div class="ui-content">
+                    <i class="fas fa-home-alt"></i>
+                    <h4>Student Home</h4>
+                    <p>Central hub for library access, search, and branch-specific resources.</p>
+                </div>
+            </div>
+            <!-- Screen 2: Teacher Home -->
+            <div class="ui-card grad-2">
+                <div class="ui-content">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h4>Teacher Dashboard</h4>
+                    <p>Exclusive interface for content management and student monitoring.</p>
+                </div>
+            </div>
+            <!-- Screen 3: Leaderboard -->
+            <div class="ui-card grad-3">
+                <div class="ui-content">
+                    <i class="fas fa-trophy-alt"></i>
+                    <h4>Global Ranking</h4>
+                    <p>Dynamic leaderboard based on honor scores and contributions.</p>
+                </div>
+            </div>
+            <!-- Screen 4: Community Forum -->
+            <div class="ui-card grad-4">
+                <div class="ui-content">
+                    <i class="fas fa-comments-alt"></i>
+                    <h4>Community Forum</h4>
+                    <p>Collaborative space for asking questions and finding answers.</p>
+                </div>
+            </div>
+            <!-- Screen 5: Profile View -->
+            <div class="ui-card grad-5">
+                <div class="ui-content">
+                    <i class="fas fa-id-badge"></i>
+                    <h4>Academic Profile</h4>
+                    <p>Showcase your certificates, bio, and total honor scores.</p>
+                </div>
+            </div>
+            <!-- Screen 6: Side Menu -->
+            <div class="ui-card grad-1">
+                <div class="ui-content">
+                    <i class="fas fa-bars"></i>
+                    <h4>Smart Navigation</h4>
+                    <p>Drawer-based access to Mailbox, Leaderboard, and Settings.</p>
+                </div>
+            </div>
+            <!-- Screen 7: Edit Profile -->
+            <div class="ui-card grad-2">
+                <div class="ui-content">
+                    <i class="fas fa-user-edit"></i>
+                    <h4>Profile Editing</h4>
+                    <p>Customize your avatar, bio, and academic credentials.</p>
+                </div>
+            </div>
+            <!-- Screen 8: Teacher ID Request -->
+            <div class="ui-card grad-3">
+                <div class="ui-content">
+                    <i class="fas fa-fingerprint"></i>
+                    <h4>Faculty Verification</h4>
+                    <p>Secure process for requesting teacher status from administrators.</p>
+                </div>
+            </div>
+            <!-- Repeat for seamless scroll loop -->
+            <div class="ui-card grad-1">
+                <div class="ui-content">
+                    <i class="fas fa-home-alt"></i>
+                    <h4>Student Home</h4>
+                    <p>Central hub for library access, search, and branch-specific resources.</p>
+                </div>
+            </div>
+            <div class="ui-card grad-2">
+                <div class="ui-content">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h4>Teacher Dashboard</h4>
+                    <p>Exclusive interface for content management and student monitoring.</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <section class="section-padding">
-        <div class="section-title reveal">
-            <h2>Engineered for Excellence</h2>
-            <p style="color: var(--text-dim);">Tools designed to elevate the academic experience.</p>
+    <section class="leaderboard-preview section-padding reveal">
+        <div>
+            <h2 style="font-size: 3rem; font-weight: 800; margin-bottom: 25px;">Verified <span>Honors</span> System</h2>
+            <p style="color: var(--text-dim); font-size: 1.1rem; line-height: 1.8;">Rise through the ranks by sharing high-quality study materials and participating in the community forum. Once you hit top rankings, ClassSync automatically generates <span>Official Digital Certificates</span> you can showcase in your profile.</p>
+            <div style="margin-top: 40px; display: flex; gap: 30px;">
+                <div><h3 style="color: var(--primary);">200+</h3><p style="color: var(--text-dim);">Honor Scores</p></div>
+                <div><h3 style="color: var(--primary);">Instant</h3><p style="color: var(--text-dim);">Certificate PDF</p></div>
+            </div>
         </div>
 
-        <div class="grid-features">
-            <div class="card reveal">
-                <i class="fas fa-bolt"></i>
-                <h3>Lightning Sync</h3>
-                <p>Instant file distribution across departments. Study materials available the second they're uploaded.</p>
-            </div>
-            <div class="card reveal">
-                <i class="fas fa-shield-halved"></i>
-                <h3>Verified Honors</h3>
-                <p>Blockchain-inspired verification for your top-tier rankings. Your hard work, officially recognized.</p>
-            </div>
-            <div class="card reveal">
-                <i class="fas fa-layer-group"></i>
-                <h3>Smart Architecture</h3>
-                <p>Categorized by Semester and Department. Finding resources takes seconds, not hours.</p>
-            </div>
+        <div class="lb-card">
+            <h4 style="margin-bottom: 20px; font-weight: 800;">Real-time Leaderboard</h4>
+            <div class="lb-row"><span class="lb-rank">#1</span><div class="lb-avatar"></div><span class="lb-name">Sanu KM</span><span class="lb-score">2,450 pts</span></div>
+            <div class="lb-row"><span class="lb-rank">#2</span><div class="lb-avatar" style="background:#4ade80;"></div><span class="lb-name">Akash Sharma</span><span class="lb-score">2,100 pts</span></div>
+            <div class="lb-row"><span class="lb-rank">#3</span><div class="lb-avatar" style="background:#f43f5e;"></div><span class="lb-name">Priya Patel</span><span class="lb-score">1,980 pts</span></div>
+            <div class="lb-row"><span class="lb-rank">#4</span><div class="lb-avatar" style="background:#fbbf24;"></div><span class="lb-name">Rahul Verma</span><span class="lb-score">1,850 pts</span></div>
         </div>
     </section>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-logo-desc">
-                <div class="logo-area">
+        <div class="footer-main">
+            <div class="footer-info">
+                <div class="logo">
                     <img src="app_icon.png" alt="ClassSync">
                     <span>ClassSync</span>
                 </div>
-                <p>Empowering the next generation of academic leaders through technology and collaboration.</p>
+                <p style="color: var(--text-dim); margin-top: 25px;">Redefining academic collaboration for the modern age. Verified honors, instant synergy.</p>
             </div>
-            <div class="footer-col">
-                <h4>Platform</h4>
+
+            <div class="footer-links">
+                <h5>Platform</h5>
                 <a href="#">Web Portal</a>
                 <a href="#">Android App</a>
                 <a href="#">Teacher Hub</a>
+                <a href="#">Security</a>
             </div>
-            <div class="footer-col">
-                <h4>Legal & Support</h4>
+
+            <div class="footer-links">
+                <h5>Support</h5>
+                <a href="mailto:sanukmpro@gmail.com">Contact Developer</a>
                 <a href="https://drive.google.com/file/d/17bnLVwGuq52Df73aMqeqQylUk1V5Baqr/view?usp=sharing">Privacy Policy</a>
-                <a href="mailto:sanukmpro@gmail.com">Contact Support</a>
+                <a href="#">Terms of Use</a>
             </div>
         </div>
         <div class="copyright">
-            © 2026 ClassSync. Designed for Global Academic Standards.
+            © 2026 ClassSync. Engineered with Passion.
         </div>
     </footer>
 
     <script>
-        // Reveal animation on scroll
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
+        // Custom Cursor Glow Logic
+        const cursor = document.getElementById('cursor-glow');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Scroll Reveal Animation Logic
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+                    el.classList.add('active');
                 }
-            }
+            });
+        });
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
