@@ -1,181 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>    <meta charset="UTF-8">
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassSync | The Ultimate Academic OS</title>
+    <title>ClassSync | Zenith Academic OS</title>
     
-    <!-- App Fonts -->
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* Official App Palette */
+            /* Indigo Core - Material 3 Values */
             --primary: #3949ab; 
-            --primary-light: #e8eaf6;
+            --primary-glow: rgba(57, 73, 171, 0.3);
             --accent: #2196f3;
             
-            /* Flutter Dept Themes */
+            /* Dept Colors from Flutter Logic */
             --cs: #303f9f;
             --mech: #ef6c00;
             --civil: #5d4037;
             --elec: #ff8f00;
             --general: #455a64;
 
-            /* Surface System */
+            /* Light Mode Variables */
             --bg: #fafafa;
+            --surface: #ffffff;
             --text: #1a1a1a;
             --text-dim: #616161;
-            --glass: rgba(255, 255, 255, 0.9);
             --border: rgba(0, 0, 0, 0.08);
-            
-            --shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
-            --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+            --card-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+            --nav-bg: rgba(57, 73, 171, 0.95);
+            --terminal-bg: #010409;
         }
 
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; }
+        [data-theme="dark"] {
+            --bg: #0a0a0c;
+            --surface: #16161a;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+            --card-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+            --nav-bg: rgba(18, 18, 18, 0.95);
+            --primary: #5c6bc0;
+            --primary-glow: rgba(92, 107, 192, 0.4);
+            --terminal-bg: #000000;
+        }
+
+        * { 
+            margin:0; padding:0; box-sizing:border-box; 
+            font-family:'Plus Jakarta Sans', sans-serif; 
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.4s var(--ease);
+        }
         
-        body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+        }
 
         /* --- NAVIGATION --- */
         nav {
             position: fixed;
-            top: 0; width: 100%; padding: 18px 6%;
+            top: 0; width: 100%; padding: 15px 6%;
             display: flex; justify-content: space-between; align-items: center;
-            background: var(--primary); color: white;
-            z-index: 2000; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            background: var(--nav-bg); color: white;
+            z-index: 5000; backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; }
-        .logo img { height: 42px; background: white; border-radius: 10px; padding: 2px; }
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.4rem; color: #fff; text-decoration: none; }
+        .logo img { height: 40px; background: white; border-radius: 8px; padding: 2px; }
 
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
-        .nav-links a:hover { color: white; }
+        .nav-actions { display: flex; gap: 20px; align-items: center; }
+
+        /* --- THEME TOGGLE BUTTON --- */
+        .theme-switch {
+            width: 45px; height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.2);
+            position: relative; overflow: hidden;
+        }
+
+        .theme-switch i { position: absolute; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); font-size: 1.2rem; }
+        .fa-sun { transform: translateY(40px); opacity: 0; }
+        .fa-moon { transform: translateY(0); opacity: 1; }
+
+        [data-theme="dark"] .fa-sun { transform: translateY(0); opacity: 1; }
+        [data-theme="dark"] .fa-moon { transform: translateY(-40px); opacity: 0; }
 
         /* --- HERO SECTION --- */
         header {
             min-height: 100vh;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 150px 6% 100px;
-            background: radial-gradient(circle at top right, var(--primary-light), transparent);
+            background: radial-gradient(circle at top right, var(--primary-glow), transparent 60%);
         }
 
-        .version-badge {
-            background: white; border: 2px solid var(--primary);
+        .v-badge {
+            background: var(--surface);
+            border: 2px solid var(--primary);
             padding: 8px 24px; border-radius: 100px; color: var(--primary);
             font-weight: 800; font-size: 0.8rem; margin-bottom: 30px;
-            box-shadow: var(--shadow);
+            box-shadow: var(--card-shadow);
         }
 
-        h1 { font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; line-height: 1; color: var(--primary); margin-bottom: 25px; letter-spacing: -3px; }
-        h1 span { color: var(--text); }
+        h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; line-height: 1.1; margin-bottom: 25px; letter-spacing: -3px; }
+        h1 span { color: var(--primary); }
 
-        .hero-sub { max-width: 700px; color: var(--text-dim); font-size: 1.2rem; margin-bottom: 50px; line-height: 1.6; }
+        .hero-sub { max-width: 750px; color: var(--text-dim); font-size: 1.25rem; margin-bottom: 50px; }
 
-        .cta-group { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .cta-stack { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
         
-        .btn {
-            padding: 18px 40px; border-radius: 16px; text-decoration: none;
-            font-weight: 800; display: flex; align-items: center; gap: 12px;
-            transition: var(--ease);
-        }
-        .btn-p { background: var(--primary); color: white; box-shadow: 0 20px 40px -10px rgba(57,73,171,0.5); }
-        .btn-p:hover { transform: translateY(-5px); box-shadow: 0 30px 50px -10px rgba(57,73,171,0.6); }
-        .btn-s { border: 2.5px solid var(--primary); color: var(--primary); }
-        .btn-s:hover { background: var(--primary-light); }
+        .btn { padding: 18px 45px; border-radius: 16px; text-decoration: none; font-weight: 800; display: flex; align-items: center; gap: 12px; }
+        .btn-p { background: var(--primary); color: white; box-shadow: 0 15px 35px var(--primary-glow); }
+        .btn-s { border: 2.5px solid var(--primary); color: var(--primary); background: var(--surface); }
 
-        /* --- THE GIGANTIC UI TRACK --- */
-        .ui-zenith { padding: 120px 0; background: white; overflow: hidden; position: relative; }
+        /* --- UI SHOWCASE TRACK --- */
+        .ui-showcase { padding: 120px 0; background: var(--bg); position: relative; overflow: hidden; }
         
         .ui-header { text-align: center; margin-bottom: 80px; padding: 0 6%; }
         .ui-header h2 { font-size: 3.5rem; color: var(--primary); font-weight: 800; }
 
         .ui-track {
             display: flex; gap: 40px; padding: 40px 6%;
-            cursor: grab; transition: transform 0.1s linear;
             width: max-content;
+            cursor: grab;
+            will-change: transform;
         }
 
-        .app-tile {
-            width: 340px; height: 620px; flex-shrink: 0;
-            background: white; border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.07);
-            border: 1px solid var(--border);
+        .tile {
+            width: 320px; height: 580px; flex-shrink: 0;
+            background: var(--surface); border-radius: 35px;
+            box-shadow: var(--card-shadow); border: 1px solid var(--border);
             overflow: hidden; position: relative;
-            transition: var(--ease);
         }
 
-        .app-tile:hover { transform: translateY(-25px) scale(1.02); border-color: var(--primary); }
+        .tile:hover { transform: translateY(-30px); border-color: var(--primary); }
 
-        .tile-header { height: 45%; position: relative; display: flex; align-items: center; justify-content: center; }
-        .tile-header i { font-size: 5rem; color: white; z-index: 1; transition: 0.5s; }
+        .tile-head { height: 40%; position: relative; display: flex; align-items: center; justify-content: center; }
+        .tile-head i { font-size: 4.5rem; color: white; z-index: 2; transition: 0.5s; }
 
-        .tile-img {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0; transition: 0.6s ease;
-        }
+        .tile-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: 0.6s ease; filter: brightness(0.6); }
+        .tile:hover .tile-img { opacity: 1; }
 
-        .app-tile:hover .tile-img { opacity: 1; }
-        .app-tile:hover .tile-header i { opacity: 0; }
-
-        .tile-body { padding: 35px; height: 55%; display: flex; flex-direction: column; }
-        .tile-body h4 { font-size: 1.6rem; color: var(--primary); margin-bottom: 12px; font-weight: 800; }
+        .tile-body { padding: 30px; height: 60%; display: flex; flex-direction: column; }
+        .tile-body h4 { font-size: 1.5rem; color: var(--primary); margin-bottom: 15px; font-weight: 800; }
         .tile-body p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
 
-        /* Color States */
-        .bg-cs { background: var(--cs); }
-        .bg-mech { background: var(--mech); }
-        .bg-civil { background: var(--civil); }
-        .bg-elec { background: var(--elec); }
-        .bg-gen { background: var(--general); }
+        .acc-cs { background: var(--cs); }
+        .acc-mech { background: var(--mech); }
+        .acc-civil { background: var(--civil); }
+        .acc-elec { background: var(--elec); }
+        .acc-gen { background: var(--general); }
 
-        /* --- THE TRUTHS SECTION (TECHNICAL) --- */
-        .truths { padding: 120px 6%; background: var(--primary-light); }
-        
-        .truth-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px; margin-top: 60px;
-        }
+        /* --- TRUTHS (TECH SPECS) --- */
+        .truths { padding: 120px 6%; background: var(--surface); }
+        .truth-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 60px; }
+        .truth-card { background: var(--bg); padding: 45px; border-radius: 30px; box-shadow: var(--card-shadow); border-left: 6px solid var(--primary); }
+        .truth-card i { font-size: 2.8rem; color: var(--primary); margin-bottom: 25px; display: block; }
+        .truth-card h3 { font-size: 1.5rem; margin-bottom: 15px; font-weight: 800; }
 
-        .truth-card {
-            background: white; padding: 40px; border-radius: 25px;
-            box-shadow: var(--shadow); border-left: 6px solid var(--primary);
-        }
-
-        .truth-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; display: block; }
-        .truth-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
-        .truth-card p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; }
-
-        /* --- TERMINAL (LIVE NODE SIM) --- */
-        .terminal-wrap { padding: 100px 6%; background: #010409; }
+        /* --- TERMINAL --- */
+        .terminal-wrap { padding: 100px 6%; background: var(--terminal-bg); }
         .terminal { background: #000; border-radius: 15px; overflow: hidden; font-family: 'JetBrains Mono', monospace; border: 1px solid #30363d; }
         .t-bar { background: #161b22; padding: 12px 20px; display: flex; gap: 8px; align-items: center; }
         .t-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .t-body { padding: 30px; height: 350px; color: #39d353; font-size: 0.9rem; overflow-y: hidden; }
+        .t-body { padding: 30px; height: 350px; color: #39d353; font-size: 0.9rem; overflow: hidden; line-height: 1.5; }
 
         /* --- FOOTER --- */
-        footer { padding: 100px 6% 40px; background: white; border-top: 1px solid var(--border); text-align: center; }
-        .footer-logo { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 30px; display: block; text-decoration: none; }
-        .footer-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-dim); text-decoration: none; font-weight: 600; transition: 0.3s; }
-        .footer-links a:hover { color: var(--primary); }
-        .copyright { font-size: 0.85rem; color: #999; padding-top: 40px; border-top: 1px solid var(--border); }
+        footer { padding: 100px 6% 40px; background: var(--surface); border-top: 1px solid var(--border); text-align: center; }
+        .footer-logo { font-size: 2.5rem; font-weight: 800; color: var(--primary); text-decoration: none; margin-bottom: 30px; display: block; }
 
-        /* FAST NAV BUTTONS */
-        .nav-float {
-            position: absolute; top: 50%; width: 100%; display: flex;
-            justify-content: space-between; padding: 0 40px; pointer-events: none;
-        }
-        .nav-btn {
-            width: 70px; height: 70px; background: var(--primary); color: white;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; cursor: pointer; pointer-events: all; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: 0.3s;
-        }
-        .nav-btn:hover { transform: scale(1.1); background: var(--accent); }
-
-        @media (max-width: 768px) { h1 { font-size: 3.2rem; } .nav-float { display: none; } }
+        /* --- UTILS --- */
+        .nav-float { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 40px; pointer-events: none; z-index: 10; }
+        .nav-btn { width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; pointer-events: all; }
     </style>
 </head>
 <body>
@@ -185,221 +187,142 @@
             <img src="app_icon.png" alt="ClassSync">
             <span>ClassSync</span>
         </a>
-        <div class="nav-links">
-            <a href="#ui">UI Zenith</a>
-            <a href="#truths">Realities</a>
-            <a href="#dev">Terminal</a>
-            <a href="https://drive.google.com/file/d/1ACnBaGerqAGrva8Hbp8p4oaoJI2TbU2D/view?usp=sharing" class="btn" style="background:white; color:var(--primary); padding: 10px 24px; border-radius: 12px;">Get App</a>
+        <div class="nav-actions">
+            <div class="nav-links">
+                <a href="#ui">Ecosystem</a>
+                <a href="#truths">Realities</a>
+                <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn" style="background:white; color:var(--primary); padding: 10px 24px; border-radius: 12px;">Get APK</a>
+            </div>
+            <div class="theme-switch" onclick="toggleTheme()">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
         </div>
     </nav>
 
     <header>
-        <div class="version-badge">V1.0.2 • MATERIAL 3 ADAPTIVE</div>
+        <div class="v-badge">ZENITH RELEASE v1.0.2</div>
         <h1>Academic <span>Synergy,</span><br>Unleashed.</h1>
-        <p class="hero-sub">The professional ecosystem for scholars and faculty. Instant resource distribution, verified honor tracking, and high-performance communication.</p>
-        
-        <div class="cta-group">
-            <a href="https://class-sync-eb06a.web.app/" class="btn btn-p"><i class="fas fa-rocket"></i> Launch Web Portal</a>
-            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-s"><i class="fab fa-android"></i> Download APK</a>
+        <p class="hero-sub">The professional Material 3 ecosystem for scholars and faculty. Instant resource distribution, verified honor tracking, and high-performance communication.</p>
+        <div class="cta-stack">
+            <a href="https://class-sync-eb06a.web.app/" class="btn btn-p"><i class="fas fa-rocket"></i> Web Portal</a>
+            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-s"><i class="fab fa-android"></i> Android APK</a>
         </div>
     </header>
 
-    <!-- THE GIGANTIC UI GALLERY -->
-    <section class="ui-zenith" id="ui">
+    <section class="ui-showcase" id="ui">
         <div class="ui-header">
             <h2>The Interface Zenith</h2>
-            <p style="color:var(--text-dim); margin-top: 15px;">A colossal preview of your ClassSync environment. Hover to reveal.</p>
+            <p style="color:var(--text-dim);">A colossal preview of the ClassSync environment. Hover any tile to reveal.</p>
         </div>
 
-        <div style="position: relative;">
+        <div class="ui-viewport">
             <div class="nav-float">
-                <div class="nav-btn" onclick="slideUI(1000)"><i class="fas fa-chevron-left"></i></div>
-                <div class="nav-btn" onclick="slideUI(-1000)"><i class="fas fa-chevron-right"></i></div>
+                <div class="nav-btn" onclick="slideUI(800)"><i class="fas fa-chevron-left"></i></div>
+                <div class="nav-btn" onclick="slideUI(-800)"><i class="fas fa-chevron-right"></i></div>
             </div>
-
             <div class="ui-track" id="track">
-                <!-- Tile 1 -->
-                <div class="app-tile">
-                    <div class="tile-header bg-cs">
-                        <i class="fas fa-home"></i>
-                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" class="tile-img">
-                    </div>
-                    <div class="tile-body">
-                        <h4>Student Explorer</h4>
-                        <p>Centralized Material 3 dashboard. Filter by Semester, search branch-specific files, and view uploader credentials.</p>
-                    </div>
+                <!-- 12 Requisite Tiles -->
+                <div class="tile">
+                    <div class="tile-head acc-cs"><i class="fas fa-home"></i><img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600" class="tile-img"></div>
+                    <div class="tile-body"><h4>Student Explorer</h4><p>Centralized Material 3 dashboard. Filter by Semester and search branch-specific files.</p></div>
                 </div>
-
-                <!-- Tile 2 -->
-                <div class="app-tile">
-                    <div class="tile-header bg-mech">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" class="tile-img">
-                    </div>
-                    <div class="tile-body">
-                        <h4>Faculty Command</h4>
-                        <p>Teacher-only toolkit. Rapid content deployment and student validation modules.</p>
-                    </div>
+                <div class="tile">
+                    <div class="tile-head acc-mech"><i class="fas fa-chalkboard-teacher"></i><img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600" class="tile-img"></div>
+                    <div class="tile-body"><h4>Faculty Command</h4><p>Teacher-only toolkit for content deployment and student validation.</p></div>
                 </div>
-
-                <!-- Tile 3 -->
-                <div class="app-tile">
-                    <div class="tile-header bg-elec">
-                        <i class="fas fa-trophy"></i>
-                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" class="tile-img">
-                    </div>
-                    <div class="tile-body">
-                        <h4>Honor Leaderboard</h4>
-                        <p>Real-time department rankings. Automated point calculation for top-tier academic contributors.</p>
-                    </div>
+                <div class="tile">
+                    <div class="tile-head acc-elec"><i class="fas fa-trophy"></i><img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600" class="tile-img"></div>
+                    <div class="tile-body"><h4>Honor Leaderboard</h4><p>Real-time department rankings based on verified academic contributions.</p></div>
                 </div>
-
-                <!-- Tile 4 -->
-                <div class="app-tile">
-                    <div class="tile-header bg-civil">
-                        <i class="fas fa-comments"></i>
-                        <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=600&q=80" class="tile-img">
-                    </div>
-                    <div class="tile-body">
-                        <h4>Community Forum</h4>
-                        <p>Collaborative Q&A hub. Departmental threads for peer-to-peer solving of complex doubts.</p>
-                    </div>
+                <div class="tile">
+                    <div class="tile-head acc-civil"><i class="fas fa-comments"></i><img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=600" class="tile-img"></div>
+                    <div class="tile-body"><h4>Community Forum</h4><p>Collaborative Q&A hub for solving complex doubts with peers.</p></div>
                 </div>
-
-                <!-- Tile 5 -->
-                <div class="app-tile">
-                    <div class="tile-header bg-gen">
-                        <i class="fas fa-envelope"></i>
-                        <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=600&q=80" class="tile-img">
-                    </div>
-                    <div class="tile-body">
-                        <h4>Student Mailbox</h4>
-                        <p>Integrated notification stream. Real-time updates on content approval and faculty messages.</p>
-                    </div>
+                <div class="tile">
+                    <div class="tile-head acc-gen"><i class="fas fa-envelope"></i><img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=600" class="tile-img"></div>
+                    <div class="tile-body"><h4>Student Mailbox</h4><p>Integrated notification stream for approvals and faculty alerts.</p></div>
                 </div>
-
-                <!-- Tile 6 -->
-                <div class="app-tile">
-                    <div class="tile-header bg-cs">
-                        <i class="fas fa-id-card"></i>
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" class="tile-img">
-                    </div>
-                    <div class="tile-body">
-                        <h4>ID Verification</h4>
-                        <p>Teacher credential flow. Secure administrative validation for elevated faculty permissions.</p>
-                    </div>
+                <div class="tile">
+                    <div class="tile-head acc-cs"><i class="fas fa-fingerprint"></i><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600" class="tile-img"></div>
+                    <div class="tile-body"><h4>ID Verification</h4><p>Secure administrative flow for elevated faculty permissions.</p></div>
                 </div>
-
-                <!-- Tile 7 -->
-                <div class="app-tile">
-                    <div class="tile-header bg-mech">
-                        <i class="fas fa-user-edit"></i>
-                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80" class="tile-img">
-                    </div>
-                    <div class="tile-body">
-                        <h4>Profile Config</h4>
-                        <p>Avatar customization, Bio editing, and academic credential management.</p>
-                    </div>
+                <div class="tile">
+                    <div class="tile-head acc-mech"><i class="fas fa-user-edit"></i><img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600" class="tile-img"></div>
+                    <div class="tile-body"><h4>Profile Config</h4><p>Manage your bio, avatar, and academic credentials seamlessly.</p></div>
                 </div>
-
-                <!-- Tile 8 -->
-                <div class="app-tile">
-                    <div class="tile-header bg-civil">
-                        <i class="fas fa-file-pdf"></i>
-                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" class="tile-img">
-                    </div>
-                    <div class="tile-body">
-                        <h4>Digital Certs</h4>
-                        <p>Instant honor generation. Verified PDFs for students reaching the leaderboard summit.</p>
-                    </div>
+                <div class="tile">
+                    <div class="tile-head acc-civil"><i class="fas fa-file-pdf"></i><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600" class="tile-img"></div>
+                    <div class="tile-body"><h4>Digital Certs</h4><p>Verified PDF honor generation for top-ranking students.</p></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- RELEVANT TRUTHS SECTION -->
-    <section class="truths" id="truths">
-        <h2 style="text-align:center; font-size: 3rem; color: var(--primary); font-weight:800;">Relevant Truths</h2>
-        <p style="text-align:center; color: var(--text-dim); margin-top:10px;">The logic and architecture behind the synergy.</p>
-
+    <section class="truths-section" id="truths">
+        <h2 style="text-align:center; font-size: 3rem; color:var(--primary); font-weight:800;">Relevant Truths</h2>
         <div class="truth-grid">
-            <div class="truth-card">
-                <i class="fas fa-fingerprint"></i>
-                <h3>AuthGate Protocol</h3>
-                <p>ClassSync implements a robust AuthGate logic. It seamlessly checks Firebase authStateChanges to route users either to Role Selection or their persistent Dashboard based on cached credentials.</p>
-            </div>
-            <div class="truth-card">
-                <i class="fas fa-database"></i>
-                <h3>Dynamic Firestore Streams</h3>
-                <p>Your library is powered by high-speed Firestore Query Snapshots. It filters materials by Department and Semester in real-time, ensuring zero-latency resource searching.</p>
-            </div>
-            <div class="truth-card">
-                <i class="fas fa-bell"></i>
-                <h3>Cloud Messaging (FCM)</h3>
-                <p>ClassSync utilizes Firebase Messaging for foreground and background notifications. Faculty announcements and Mailbox alerts reach students instantly across Android and Windows.</p>
-            </div>
-            <div class="truth-card">
-                <i class="fas fa-user-shield"></i>
-                <h3>Teacher ID Request</h3>
-                <p>Teachers aren't just registered; they're verified. Our system creates a secure request document in Firestore, requiring admin approval before faculty tools are unlocked.</p>
-            </div>
-            <div class="truth-card">
-                <i class="fas fa-code-branch"></i>
-                <h3>Multi-Platform Persistence</h3>
-                <p>Designed for Android, Web, and Windows. We use Platform-aware logic and SharedPreferences to maintain user sessions and theme settings (Dark/Light mode) permanently.</p>
-            </div>
-            <div class="truth-card">
-                <i class="fas fa-file-export"></i>
-                <h3>In-App Preview Engine</h3>
-                <p>Supports PDF, Images, and Documents. ClassSync intelligently decides between an in-app image viewer or an external application launch for seamless file reading.</p>
-            </div>
+            <div class="truth-card"><i class="fas fa-shield-alt"></i><h3>AuthGate Protocol</h3><p>ClassSync implements robust AuthGate logic. It seamlessly checks Firebase authStateChanges to route users to their persistent Dashboard.</p></div>
+            <div class="truth-card"><i class="fas fa-bolt"></i><h3>Dynamic Streams</h3><p>Library is powered by Firestore Query Snapshots, filtering materials by Department and Semester in real-time.</p></div>
+            <div class="truth-card"><i class="fas fa-broadcast-tower"></i><h3>Cloud Messaging</h3><p>FCM integration ensures notifications for content approvals and mailbox alerts reach students instantly.</p></div>
         </div>
     </section>
 
-    <!-- TERMINAL SECTION -->
     <section class="terminal-wrap" id="dev">
         <div class="terminal">
             <div class="t-bar">
                 <div class="t-dot" style="background:#ff5f56;"></div>
                 <div class="t-dot" style="background:#ffbd2e;"></div>
                 <div class="t-dot" style="background:#27c93f;"></div>
-                <span style="color:#6e7681; margin-left:10px; font-size:0.75rem;">class_sync_engine.dart — 128kb</span>
+                <span style="color:#6e7681; margin-left:10px; font-size:0.75rem;">class_sync_engine.dart</span>
             </div>
             <div class="t-body" id="t-content">
                 <div>[AUTH] Handshake started...</div>
                 <div>[SYSTEM] Firebase Auth session persisted.</div>
-                <div>[LOAD] Fetching content for branch: COMPUTER_SCIENCE</div>
-                <div>[FCM] Notification listener initialized.</div>
-                <div>[SYNC] Syncing Honor Scores for UID: SANU_001</div>
+                <div>[LOAD] Fetching branch: COMPUTER_SCIENCE</div>
             </div>
         </div>
     </section>
 
     <footer>
         <a href="#" class="footer-logo">ClassSync</a>
-        <div class="footer-links">
-            <a href="#">Launch Hub</a>
-            <a href="#">Android Release</a>
-            <a href="mailto:sanukmpro@gmail.com">Developer Support</a>
-            <a href="https://drive.google.com/file/d/17bnLVwGuq52Df73aMqeqQylUk1V5Baqr/view?usp=sharing">Privacy Policy</a>
-            <a href="#">Teacher ID Portal</a>
-        </div>
-        <div class="copyright">
-            © 2026 ClassSync. Engineered with Passion for Global Academic Standards.
+        <p style="color:var(--text-dim); margin-bottom: 30px;">Engineered for Global Academic Standards. © 2026</p>
+        <div style="display:flex; justify-content:center; gap:20px;">
+            <a href="mailto:sanukmpro@gmail.com" style="color:var(--primary); text-decoration:none; font-weight:600;">Support</a>
+            <a href="https://drive.google.com/file/d/17bnLVwGuq52Df73aMqeqQylUk1V5Baqr/view?usp=sharing" style="color:var(--primary); text-decoration:none; font-weight:600;">Privacy Policy</a>
         </div>
     </footer>
 
     <script>
-        // Terminal Simulator
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const target = current === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        const track = document.getElementById('track');
+        let pos = 0;
+        function slideUI(amt) {
+            pos += amt;
+            if(pos > 0) pos = 0;
+            const max = -(track.scrollWidth - window.innerWidth);
+            if(pos < max) pos = max;
+            track.style.transform = `translateX(${pos}px)`;
+        }
+
         const t = document.getElementById('t-content');
         const logs = [
-            "Syncing Firestore stream: contents/computerscience...",
-            "New Mailbox notification sent to Student_04",
-            "Broadcasting Honor Score update: +50 pts",
-            "Teacher verification request sent to admin...",
-            "Encrypting verified certificate: CS_CERT_102",
-            "Updating department leaderboard (Top 10)...",
-            "Platform persistence: Session valid for 30 days."
+            "Syncing Firestore: contents/cse...",
+            "New Mailbox Alert -> Student_04",
+            "Honor Score update: +50 pts",
+            "Teacher verification: APPROVED",
+            "Generating Certificate: CS_102",
+            "Persistence: Session Valid"
         ];
         let idx = 0;
         setInterval(() => {
@@ -407,27 +330,13 @@
             div.textContent = `[SYNC] ${logs[idx % logs.length]}`;
             t.appendChild(div);
             idx++;
-            if (t.children.length > 12) t.removeChild(t.firstChild);
+            if(t.children.length > 12) t.removeChild(t.firstChild);
         }, 2500);
 
-        // Giant Slider Logic
-        const track = document.getElementById('track');
-        let currentPos = 0;
-        function slideUI(amt) {
-            currentPos += amt;
-            if (currentPos > 0) currentPos = 0;
-            const max = -(track.scrollWidth - window.innerWidth);
-            if (currentPos < max) currentPos = max;
-            track.style.transform = `translateX(${currentPos}px)`;
-        }
-
-        // Auto-drift gallery
         let isHovered = false;
         track.onmouseenter = () => isHovered = true;
         track.onmouseleave = () => isHovered = false;
-        setInterval(() => {
-            if(!isHovered) slideUI(-1);
-        }, 30);
+        setInterval(() => { if(!isHovered) slideUI(-1); }, 30);
     </script>
 </body>
 </html>
