@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
-<head><meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassSync | Professional Academic Ecosystem</title>
+    <title>ClassSync | Academic Synergy Redefined</title>
     
     <!-- Professional Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
@@ -10,20 +11,17 @@
     
     <style>
         :root {
-            /* Standard Professional Palette */
-            --primary: #2563eb;
-            --primary-soft: rgba(37, 99, 235, 0.1);
+            /* Indigo & Slate Professional Palette */
+            --primary: #3949ab;
+            --primary-soft: rgba(57, 73, 171, 0.1);
             --bg: #ffffff;
             --surface: #f8fafc;
             --text: #0f172a;
             --text-dim: #64748b;
             --border: #e2e8f0;
-            --nav-bg: rgba(255, 255, 255, 0.8);
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --indigo-dept: #4338ca;
-            --orange-dept: #ea580c;
-            --brown-dept: #78350f;
-            --amber-dept: #d97706;
+            --nav-bg: rgba(255, 255, 255, 0.85);
+            --radius: 16px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
         [data-theme="dark"] {
@@ -32,14 +30,14 @@
             --text: #f8fafc;
             --text-dim: #94a3b8;
             --border: #1e293b;
-            --nav-bg: rgba(2, 6, 23, 0.8);
-            --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+            --nav-bg: rgba(2, 6, 23, 0.85);
+            --primary: #5c6bc0;
         }
 
         * { 
             margin: 0; padding: 0; box-sizing: border-box; 
             font-family: 'Inter', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         }
         
         body { 
@@ -62,11 +60,11 @@
 
         .logo { 
             display: flex; align-items: center; gap: 10px; 
-            font-weight: 700; font-size: 1.25rem; 
-            color: var(--text); text-decoration: none;
-            letter-spacing: -0.025em;
+            font-weight: 800; font-size: 1.3rem; 
+            color: var(--primary); text-decoration: none;
+            letter-spacing: -0.04em;
         }
-        .logo img { height: 32px; border-radius: 6px; }
+        .logo img { height: 34px; border-radius: 8px; }
 
         .nav-right { display: flex; gap: 2rem; align-items: center; }
         .nav-links { display: flex; gap: 1.5rem; }
@@ -80,86 +78,259 @@
         .theme-btn {
             background: var(--surface);
             border: 1px solid var(--border);
-            width: 40px; height: 40px;
-            border-radius: 8px;
+            width: 42px; height: 42px;
+            border-radius: 10px;
             cursor: pointer;
             display: flex; align-items: center; justify-content: center;
             color: var(--text);
             position: relative; overflow: hidden;
         }
-        .theme-btn i { position: absolute; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .fa-sun { transform: translateY(30px); opacity: 0; }
+        
+        .theme-btn i { position: absolute; transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .fa-sun { transform: translateY(35px); opacity: 0; }
         [data-theme="dark"] .fa-sun { transform: translateY(0); opacity: 1; }
-        [data-theme="dark"] .fa-moon { transform: translateY(-30px); opacity: 0; }
+        [data-theme="dark"] .fa-moon { transform: translateY(-35px); opacity: 0; }
 
         /* --- Hero Section --- */
         header {
-            min-height: 85vh;
+            min-height: 90vh;
             padding: 160px 8% 80px;
             display: flex; flex-direction: column; align-items: center;
             text-align: center;
-            background: radial-gradient(circle at top right, var(--primary-soft), transparent 50%);
+            position: relative;
         }
 
-        .badge {
+        .hero-badge {
             background: var(--primary-soft);
             color: var(--primary);
-            font-weight: 600; font-size: 0.75rem;
-            padding: 6px 14px; border-radius: 100px;
-            margin-bottom: 2rem; border: 1px solid rgba(37, 99, 235, 0.2);
+            font-weight: 700; font-size: 0.75rem;
+            padding: 8px 16px; border-radius: 100px;
+            margin-bottom: 2rem; border: 1px solid rgba(57, 73, 171, 0.2);
+            text-transform: uppercase; letter-spacing: 0.05em;
         }
 
         h1 { 
-            font-size: clamp(2.5rem, 5vw, 4.5rem); 
+            font-size: clamp(2.5rem, 6vw, 4.5rem); 
             font-weight: 800; letter-spacing: -0.05em; 
             line-height: 1.1; margin-bottom: 1.5rem;
+            max-width: 900px;
         }
         h1 span { color: var(--primary); }
 
         .subtext { 
-            max-width: 600px; color: var(--text-dim); 
-            font-size: 1.1rem; margin-bottom: 3rem; 
+            max-width: 650px; color: var(--text-dim); 
+            font-size: 1.2rem; margin-bottom: 3.5rem; 
         }
 
-        .cta { display: flex; gap: 1rem; }
+        .btn-group { display: flex; gap: 1rem; }
         .btn {
-            padding: 0.8rem 1.8rem; border-radius: 8px;
+            padding: 0.9rem 2rem; border-radius: 12px;
             font-weight: 600; text-decoration: none; font-size: 0.95rem;
-            display: inline-flex; align-items: center; gap: 8px;
-            transition: 0.2s;
+            display: inline-flex; align-items: center; gap: 10px;
+            transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .btn-p { background: var(--primary); color: white; }
-        .btn-p:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-p { background: var(--primary); color: white; box-shadow: 0 10px 15px -3px rgba(57, 73, 171, 0.3); }
+        .btn-p:hover { transform: translateY(-2px); filter: brightness(1.1); }
         .btn-s { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+        .btn-s:hover { background: var(--border); }
 
-        /* --- Interface Section (Bento Style) --- */
+        /* --- Bento Grid Section --- */
         .section-wrap { padding: 100px 8%; }
-        .section-header { margin-bottom: 4rem; text-align: left; }
-        .section-header h2 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; }
+        .section-header { margin-bottom: 4rem; text-align: center; }
+        .section-header h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; }
+        .section-header p { color: var(--text-dim); font-size: 1.1rem; }
 
         .bento-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
             gap: 1.5rem;
         }
 
         .bento-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: var(--radius);
+            padding: 2.5rem;
             position: relative;
             overflow: hidden;
-            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-        .bento-card:hover { border-color: var(--primary); transform: translateY(-4px); }
 
-        .card-icon {
-            width: 48px; height: 48px;
-            background: var(--bg);
+        .bento-card:hover { border-color: var(--primary); }
+
+        .bento-card i { font-size: 2rem; color: var(--primary); margin-bottom: 1rem; }
+        .bento-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .bento-card p { color: var(--text-dim); font-size: 0.95rem; }
+
+        .large { grid-column: span 2; }
+        .tall { grid-row: span 2; }
+
+        /* --- Terminal / Logic Section --- */
+        .terminal-wrap { 
+            background: #010409; padding: 80px 8%; 
+            border-radius: 40px; margin: 0 4%;
             border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 1.5rem; color: var(--primary); font-size: 1.25rem;
+        }
+        .terminal {
+            font-family: 'JetBrains Mono', monospace;
+            color: #39d353;
+            font-size: 0.9rem;
+        }
+        .t-header { color: #6e7681; margin-bottom: 20px; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
+
+        /* --- Footer --- */
+        footer {
+            padding: 80px 8% 40px;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 2rem 0; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        .copyright { font-size: 0.8rem; color: var(--text-dim); }
+
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+            .large, .tall { grid-column: span 2; grid-row: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo">
+            <img src="app_icon.png" alt="ClassSync">
+            <span>ClassSync</span>
+        </a>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="#features">Ecosystem</a>
+                <a href="#security">Architecture</a>
+            </div>
+            <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+    </nav>
+
+    <header>
+        <div class="hero-badge">v1.0.2 Stable Release</div>
+        <h1>Academic Excellence, <span>Synergized.</span></h1>
+        <p class="subtext">
+            A professional ecosystem for modern scholars and educators. Streamline resources, verify achievements, and bridge the gap between classroom and cloud.
+        </p>
+        <div class="btn-group">
+            <a href="#" class="btn btn-p"><i class="fas fa-globe"></i> Open Web Portal</a>
+            <a href="#" class="btn btn-s"><i class="fab fa-android"></i> Download APK</a>
+        </div>
+    </header>
+
+    <section class="section-wrap" id="features">
+        <div class="section-header">
+            <h2>Designed for Modern Learning</h2>
+            <p>Every feature built with Material 3 principles and high-performance synchronization.</p>
+        </div>
+
+        <div class="bento-grid">
+            <div class="bento-card large">
+                <div>
+                    <i class="fas fa-layer-group"></i>
+                    <h3>Student Library</h3>
+                    <p>Access department-specific materials curated by peers and faculty. Smart filtering by semester ensures you find what you need in seconds.</p>
+                </div>
+            </div>
+            <div class="bento-card">
+                <i class="fas fa-trophy"></i>
+                <h3>Leaderboards</h3>
+                <p>Earn honor scores through contributions and rise in departmental rankings.</p>
+            </div>
+            <div class="bento-card tall">
+                <i class="fas fa-id-card"></i>
+                <h3>Faculty Verification</h3>
+                <p>A secure ID request system ensures only verified teachers can manage high-level academic content. Admin-vetted faculty roles provide the backbone of our trusted data ecosystem.</p>
+                <div style="margin-top: 20px; padding: 15px; background: var(--primary-soft); border-radius: 12px; border: 1px dashed var(--primary);">
+                    <small style="color: var(--primary); font-weight: 700;">TRUSTED BY FACULTY</small>
+                </div>
+            </div>
+            <div class="bento-card">
+                <i class="fas fa-comments"></i>
+                <h3>Community Forum</h3>
+                <p>Real-time collaborative Q&A threads for academic problem solving.</p>
+            </div>
+            <div class="bento-card large">
+                <i class="fas fa-certificate"></i>
+                <h3>Verified Honors</h3>
+                <p>Automatic PDF certificate generation for top contributors. Show off your academic impact with verifiable credentials directly in your profile.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-wrap" id="security">
+        <div class="terminal-wrap">
+            <div class="terminal">
+                <div class="t-header">// ClassSync Architecture Log</div>
+                <div id="terminal-content">
+                    > Initializing Cloud Handshake...<br>
+                    > Firebase Auth: Session Persisted<br>
+                    > Firestore Stream: contents/computer_science synced [200 OK]<br>
+                    > FCM: Push Notification Listener active<br>
+                    > System: Material 3 Theme Engine initialized...<br>
+                    <span style="color: #6366f1;">> Ready for user interaction_</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo" style="justify-content: center; margin-bottom: 1rem;">
+            <span>ClassSync</span>
+        </div>
+        <p>Built for the modern academic journey.</p>
+        <div class="footer-links">
+            <a href="mailto:sanukmpro@gmail.com">Support</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Teacher Portal</a>
+            <a href="#">Leaderboard API</a>
+        </div>
+        <div class="copyright">
+            &copy; 2026 ClassSync. Engineered for Global Academic Standards.
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
         }
 
+        // Apply saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Simple terminal animation
+        const logs = [
+            "> Syncing Honor Scores...",
+            "> New material detected: AI_Module_02.pdf",
+            "> Verifying Faculty Credentials...",
+            "> Broadcasting Community Alert...",
+            "> Encrypting Mailbox Data..."
+        ];
+        let i = 0;
+        setInterval(() => {
+            const content = document.getElementById('terminal-content');
+            const newLine = document.createElement('div');
+            newLine.innerHTML = logs[i % logs.length];
+            content.appendChild(newLine);
+            if(content.children.length > 8) content.removeChild(content.firstChild);
+            i++;
+        }, 3000);
+    </script>
+</body>
+</html>
