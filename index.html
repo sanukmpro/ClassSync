@@ -1,499 +1,432 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassSync | Academic Excellence, Synergized</title>
+    <title>ClassSync | The Ultimate Academic OS</title>
     
-    <!-- App Fonts (Plus Jakarta Sans matches Flutter's modern look) -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <!-- App Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* Your App's Official Indigo Palette */
-            --primary: #3949ab; /* Colors.indigo.shade700 */
-            --primary-light: #e8eaf6; /* Colors.indigo.shade50 */
-            --accent-blue: #2196f3;
+            /* Official App Palette */
+            --primary: #3949ab; 
+            --primary-light: #e8eaf6;
+            --accent: #2196f3;
             
-            /* Dept Themes from your Flutter Code */
-            --dept-cs: #303f9f;
-            --dept-mech: #ef6c00;
-            --dept-civil: #5d4037;
-            --dept-elec: #ff8f00;
+            /* Flutter Dept Themes */
+            --cs: #303f9f;
+            --mech: #ef6c00;
+            --civil: #5d4037;
+            --elec: #ff8f00;
+            --general: #455a64;
 
-            /* Dark Mode Surfaces (Matching your app's DarkTheme) */
-            --bg-dark: #121212;
-            --appbar-dark: #1f1f1f;
-            --surface-dark: #2c2c2c;
-            
-            /* Light Mode Surfaces (Matching your app's LightTheme) */
-            --bg-light: #fafafa; /* Colors.grey[50] */
-            --text-main: #212121;
-            --text-dim: #757575;
-            
+            /* Surface System */
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --text-dim: #616161;
+            --glass: rgba(255, 255, 255, 0.9);
             --border: rgba(0, 0, 0, 0.08);
-            --radius: 20px; /* Matching your Card shape */
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
+            --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Plus Jakarta Sans',sans-serif; }
+        
+        body { background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
 
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            overflow-x: hidden;
-            transition: background 0.5s ease;
-        }
-
-        /* --- THEME TOGGLE (Simulating your ThemeProvider) --- */
-        body.dark-mode {
-            background-color: var(--bg-dark);
-            color: #ffffff;
-        }
-
-        /* --- NAVIGATION (Matches your StudentAppBar) --- */
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            z-index: 1000;
+            top: 0; width: 100%; padding: 18px 6%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--primary); color: white;
+            z-index: 2000; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 800;
-            font-size: 1.4rem;
-        }
+        .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; }
+        .logo img { height: 42px; background: white; border-radius: 10px; padding: 2px; }
 
-        .logo-area img {
-            height: 40px;
-            border-radius: 8px;
-            background: white;
-            padding: 2px;
-        }
-
-        .nav-btns { display: flex; gap: 20px; align-items: center; }
-        .nav-btns a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: white; }
 
         /* --- HERO SECTION --- */
         header {
-            min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 8% 60px;
-            background: linear-gradient(to bottom, var(--primary-light), transparent);
+            min-height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 150px 6% 100px;
+            background: radial-gradient(circle at top right, var(--primary-light), transparent);
         }
 
-        .hero-badge {
-            background: white;
-            border: 1.5px solid var(--primary);
-            padding: 6px 18px;
-            border-radius: 100px;
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        .version-badge {
+            background: white; border: 2px solid var(--primary);
+            padding: 8px 24px; border-radius: 100px; color: var(--primary);
+            font-weight: 800; font-size: 0.8rem; margin-bottom: 30px;
+            box-shadow: var(--shadow);
         }
 
-        h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            color: var(--primary);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
+        h1 { font-size: clamp(3rem, 8vw, 6.5rem); font-weight: 800; line-height: 1; color: var(--primary); margin-bottom: 25px; letter-spacing: -3px; }
+        h1 span { color: var(--text); }
 
-        .hero-sub {
-            max-width: 600px;
-            color: var(--text-dim);
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-        }
+        .hero-sub { max-width: 700px; color: var(--text-dim); font-size: 1.2rem; margin-bottom: 50px; line-height: 1.6; }
 
-        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
-
-        .btn {
-            padding: 16px 32px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: var(--transition);
-        }
-
-        .btn-primary { background: var(--primary); color: white; box-shadow: 0 8px 20px rgba(57,73,171,0.3); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(57,73,171,0.4); }
+        .cta-group { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
         
-        .btn-outline { border: 2px solid var(--primary); color: var(--primary); }
-        .btn-outline:hover { background: var(--primary-light); }
+        .btn {
+            padding: 18px 40px; border-radius: 16px; text-decoration: none;
+            font-weight: 800; display: flex; align-items: center; gap: 12px;
+            transition: var(--ease);
+        }
+        .btn-p { background: var(--primary); color: white; box-shadow: 0 20px 40px -10px rgba(57,73,171,0.5); }
+        .btn-p:hover { transform: translateY(-5px); box-shadow: 0 30px 50px -10px rgba(57,73,171,0.6); }
+        .btn-s { border: 2.5px solid var(--primary); color: var(--primary); }
+        .btn-s:hover { background: var(--primary-light); }
 
-        /* --- INTERACTIVE UI SHOWCASE --- */
-        .showcase {
-            padding: 80px 0;
-            background: white;
-            position: relative;
+        /* --- THE GIGANTIC UI TRACK --- */
+        .ui-zenith { padding: 120px 0; background: white; overflow: hidden; position: relative; }
+        
+        .ui-header { text-align: center; margin-bottom: 80px; padding: 0 6%; }
+        .ui-header h2 { font-size: 3.5rem; color: var(--primary); font-weight: 800; }
+
+        .ui-track {
+            display: flex; gap: 40px; padding: 40px 6%;
+            cursor: grab; transition: transform 0.1s linear;
+            width: max-content;
         }
 
-        .showcase-header {
-            text-align: center;
-            margin-bottom: 50px;
+        .app-tile {
+            width: 340px; height: 620px; flex-shrink: 0;
+            background: white; border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.07);
+            border: 1px solid var(--border);
+            overflow: hidden; position: relative;
+            transition: var(--ease);
         }
 
-        .slider-track {
-            display: flex;
-            gap: 30px;
-            padding: 20px 8%;
-            overflow-x: auto;
-            scrollbar-width: none; /* Hide scrollbar */
+        .app-tile:hover { transform: translateY(-25px) scale(1.02); border-color: var(--primary); }
+
+        .tile-header { height: 45%; position: relative; display: flex; align-items: center; justify-content: center; }
+        .tile-header i { font-size: 5rem; color: white; z-index: 1; transition: 0.5s; }
+
+        .tile-img {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0; transition: 0.6s ease;
         }
 
-        .slider-track::-webkit-scrollbar { display: none; }
+        .app-tile:hover .tile-img { opacity: 1; }
+        .app-tile:hover .tile-header i { opacity: 0; }
 
-        /* Card mimicking your _buildContentCard */
-        .app-card {
-            width: 300px;
-            height: 540px;
-            flex-shrink: 0;
-            background: white;
-            border-radius: var(--radius);
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            transition: var(--transition);
+        .tile-body { padding: 35px; height: 55%; display: flex; flex-direction: column; }
+        .tile-body h4 { font-size: 1.6rem; color: var(--primary); margin-bottom: 12px; font-weight: 800; }
+        .tile-body p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; }
+
+        /* Color States */
+        .bg-cs { background: var(--cs); }
+        .bg-mech { background: var(--mech); }
+        .bg-civil { background: var(--civil); }
+        .bg-elec { background: var(--elec); }
+        .bg-gen { background: var(--general); }
+
+        /* --- THE TRUTHS SECTION (TECHNICAL) --- */
+        .truths { padding: 120px 6%; background: var(--primary-light); }
+        
+        .truth-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px; margin-top: 60px;
         }
 
-        .app-card:hover { transform: translateY(-15px); }
-
-        .card-header {
-            height: 40%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+        .truth-card {
+            background: white; padding: 40px; border-radius: 25px;
+            box-shadow: var(--shadow); border-left: 6px solid var(--primary);
         }
 
-        .card-header i { font-size: 4rem; color: white; }
+        .truth-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; display: block; }
+        .truth-card h3 { font-size: 1.4rem; margin-bottom: 15px; }
+        .truth-card p { color: var(--text-dim); font-size: 0.95rem; line-height: 1.7; }
 
-        .preview-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: 0.5s ease;
-        }
-
-        .app-card:hover .preview-img { opacity: 1; }
-
-        .card-body {
-            padding: 25px;
-            background: white;
-            height: 60%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-body h4 { font-size: 1.3rem; margin-bottom: 10px; color: var(--primary); }
-        .card-body p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.5; }
-
-        /* --- DEPT THEMES --- */
-        .cs { background-color: var(--dept-cs); }
-        .mech { background-color: var(--dept-mech); }
-        .civil { background-color: var(--dept-civil); }
-        .elec { background-color: var(--dept-elec); }
-
-        /* --- STATS SECTION (Leaderboard Simulation) --- */
-        .lb-section {
-            padding: 100px 8%;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 60px;
-            align-items: center;
-            background: var(--primary-light);
-        }
-
-        .lb-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        }
-
-        .lb-row {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .rank-circle {
-            width: 35px;
-            height: 35px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-        }
-
-        .lb-avatar { width: 45px; height: 45px; border-radius: 50%; background: #ddd; }
-
-        /* --- TERMINAL (Backend Handshake) --- */
-        .terminal-wrap {
-            padding: 80px 8%;
-            background: #0f172a;
-        }
-
-        .terminal {
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            font-family: 'JetBrains Mono', monospace;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-        }
-
-        .t-head { background: #334155; padding: 10px 20px; display: flex; gap: 8px; }
+        /* --- TERMINAL (LIVE NODE SIM) --- */
+        .terminal-wrap { padding: 100px 6%; background: #010409; }
+        .terminal { background: #000; border-radius: 15px; overflow: hidden; font-family: 'JetBrains Mono', monospace; border: 1px solid #30363d; }
+        .t-bar { background: #161b22; padding: 12px 20px; display: flex; gap: 8px; align-items: center; }
         .t-dot { width: 12px; height: 12px; border-radius: 50%; }
-        .t-body { padding: 25px; color: #10b981; font-size: 0.9rem; height: 300px; overflow-y: hidden; }
+        .t-body { padding: 30px; height: 350px; color: #39d353; font-size: 0.9rem; overflow-y: hidden; }
 
         /* --- FOOTER --- */
-        footer {
-            padding: 80px 8% 40px;
-            background: var(--primary);
-            color: white;
-            text-align: center;
+        footer { padding: 100px 6% 40px; background: white; border-top: 1px solid var(--border); text-align: center; }
+        .footer-logo { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 30px; display: block; text-decoration: none; }
+        .footer-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .footer-links a:hover { color: var(--primary); }
+        .copyright { font-size: 0.85rem; color: #999; padding-top: 40px; border-top: 1px solid var(--border); }
+
+        /* FAST NAV BUTTONS */
+        .nav-float {
+            position: absolute; top: 50%; width: 100%; display: flex;
+            justify-content: space-between; padding: 0 40px; pointer-events: none;
         }
-
-        .footer-logo { margin-bottom: 30px; font-weight: 800; font-size: 1.8rem; }
-        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; }
-        .footer-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; }
-        .footer-links a:hover { color: white; }
-
-        .copyright { font-size: 0.8rem; opacity: 0.6; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
-
-        @media (max-width: 900px) {
-            .lb-section { grid-template-columns: 1fr; }
-            h1 { font-size: 2.8rem; }
+        .nav-btn {
+            width: 70px; height: 70px; background: var(--primary); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; cursor: pointer; pointer-events: all; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: 0.3s;
         }
+        .nav-btn:hover { transform: scale(1.1); background: var(--accent); }
+
+        @media (max-width: 768px) { h1 { font-size: 3.2rem; } .nav-float { display: none; } }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
     <nav>
-        <div class="logo-area">
+        <a href="#" class="logo">
             <img src="app_icon.png" alt="ClassSync">
             <span>ClassSync</span>
-        </div>
-        <div class="nav-btns">
-            <a href="#features">Library</a>
-            <a href="#leaderboard">Honors</a>
-            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn" style="background:white; color:var(--primary); padding: 8px 20px; border-radius: 8px;">Download APK</a>
+        </a>
+        <div class="nav-links">
+            <a href="#ui">UI Zenith</a>
+            <a href="#truths">Realities</a>
+            <a href="#dev">Terminal</a>
+            <a href="https://drive.google.com/file/d/1ACnBaGerqAGrva8Hbp8p4oaoJI2TbU2D/view?usp=sharing" class="btn" style="background:white; color:var(--primary); padding: 10px 24px; border-radius: 12px;">Get App</a>
         </div>
     </nav>
 
-    <!-- HERO -->
     <header>
-        <div class="hero-badge">MATERIAL 3 ENGINE • VERSION 1.0.2</div>
-        <h1>Academic Excellence,<br>Synergized.</h1>
-        <p class="hero-sub">The ultimate all-in-one ecosystem for Students and Teachers. Secure file sharing, verified honors, and collaborative forums.</p>
+        <div class="version-badge">V1.0.2 • MATERIAL 3 ADAPTIVE</div>
+        <h1>Academic <span>Synergy,</span><br>Unleashed.</h1>
+        <p class="hero-sub">The professional ecosystem for scholars and faculty. Instant resource distribution, verified honor tracking, and high-performance communication.</p>
         
-        <div class="btn-group">
-            <a href="https://class-sync-eb06a.web.app/" class="btn btn-primary">
-                <i class="fas fa-globe"></i> Open Web Portal
-            </a>
-            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-outline">
-                <i class="fab fa-android"></i> Download for Android
-            </a>
+        <div class="cta-group">
+            <a href="https://class-sync-eb06a.web.app/" class="btn btn-p"><i class="fas fa-rocket"></i> Launch Web Portal</a>
+            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-s"><i class="fab fa-android"></i> Download APK</a>
         </div>
     </header>
 
-    <!-- UI SLIDER (Experience the Interface) -->
-    <section class="showcase" id="features">
-        <div class="showcase-header">
-            <h2 style="font-size: 2.5rem; color: var(--primary);">Experience the Synergy UI</h2>
-            <p style="color: var(--text-dim);">Hover over a card to see the actual app screen.</p>
+    <!-- THE GIGANTIC UI GALLERY -->
+    <section class="ui-zenith" id="ui">
+        <div class="ui-header">
+            <h2>The Interface Zenith</h2>
+            <p style="color:var(--text-dim); margin-top: 15px;">A colossal preview of your ClassSync environment. Hover to reveal.</p>
         </div>
 
-        <div class="slider-track" id="slider">
-            <!-- Student Home -->
-            <div class="app-card">
-                <div class="card-header cs">
-                    <i class="fas fa-house-user"></i>
-                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" class="preview-img">
-                </div>
-                <div class="card-body">
-                    <h4>Student Home</h4>
-                    <p>Access your branch-specific library, search for materials, and view recent uploads from your peers.</p>
-                </div>
+        <div style="position: relative;">
+            <div class="nav-float">
+                <div class="nav-btn" onclick="slideUI(1000)"><i class="fas fa-chevron-left"></i></div>
+                <div class="nav-btn" onclick="slideUI(-1000)"><i class="fas fa-chevron-right"></i></div>
             </div>
 
-            <!-- Teacher Portal -->
-            <div class="app-card">
-                <div class="card-header mech">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" class="preview-img">
+            <div class="ui-track" id="track">
+                <!-- Tile 1 -->
+                <div class="app-tile">
+                    <div class="tile-header bg-cs">
+                        <i class="fas fa-home"></i>
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" class="tile-img">
+                    </div>
+                    <div class="tile-body">
+                        <h4>Student Explorer</h4>
+                        <p>Centralized Material 3 dashboard. Filter by Semester, search branch-specific files, and view uploader credentials.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h4>Teacher Hub</h4>
-                    <p>A specialized dashboard for faculty members to upload content, verify student IDs, and manage branch resources.</p>
-                </div>
-            </div>
 
-            <!-- Leaderboard -->
-            <div class="app-card">
-                <div class="card-header elec">
-                    <i class="fas fa-trophy"></i>
-                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" class="preview-img">
+                <!-- Tile 2 -->
+                <div class="app-tile">
+                    <div class="tile-header bg-mech">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" class="tile-img">
+                    </div>
+                    <div class="tile-body">
+                        <h4>Faculty Command</h4>
+                        <p>Teacher-only toolkit. Rapid content deployment and student validation modules.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h4>Leaderboard</h4>
-                    <p>Track your honor scores department-wise. Rise to the top and earn official digital certificates.</p>
-                </div>
-            </div>
 
-            <!-- Forum -->
-            <div class="app-card">
-                <div class="card-header civil">
-                    <i class="fas fa-comments"></i>
-                    <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=600&q=80" class="preview-img">
+                <!-- Tile 3 -->
+                <div class="app-tile">
+                    <div class="tile-header bg-elec">
+                        <i class="fas fa-trophy"></i>
+                        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" class="tile-img">
+                    </div>
+                    <div class="tile-body">
+                        <h4>Honor Leaderboard</h4>
+                        <p>Real-time department rankings. Automated point calculation for top-tier academic contributors.</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h4>Community Forum</h4>
-                    <p>Engage in real-time academic discussions. Ask questions, provide answers, and collaborate effectively.</p>
+
+                <!-- Tile 4 -->
+                <div class="app-tile">
+                    <div class="tile-header bg-civil">
+                        <i class="fas fa-comments"></i>
+                        <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=600&q=80" class="tile-img">
+                    </div>
+                    <div class="tile-body">
+                        <h4>Community Forum</h4>
+                        <p>Collaborative Q&A hub. Departmental threads for peer-to-peer solving of complex doubts.</p>
+                    </div>
+                </div>
+
+                <!-- Tile 5 -->
+                <div class="app-tile">
+                    <div class="tile-header bg-gen">
+                        <i class="fas fa-envelope"></i>
+                        <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=600&q=80" class="tile-img">
+                    </div>
+                    <div class="tile-body">
+                        <h4>Student Mailbox</h4>
+                        <p>Integrated notification stream. Real-time updates on content approval and faculty messages.</p>
+                    </div>
+                </div>
+
+                <!-- Tile 6 -->
+                <div class="app-tile">
+                    <div class="tile-header bg-cs">
+                        <i class="fas fa-id-card"></i>
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" class="tile-img">
+                    </div>
+                    <div class="tile-body">
+                        <h4>ID Verification</h4>
+                        <p>Teacher credential flow. Secure administrative validation for elevated faculty permissions.</p>
+                    </div>
+                </div>
+
+                <!-- Tile 7 -->
+                <div class="app-tile">
+                    <div class="tile-header bg-mech">
+                        <i class="fas fa-user-edit"></i>
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80" class="tile-img">
+                    </div>
+                    <div class="tile-body">
+                        <h4>Profile Config</h4>
+                        <p>Avatar customization, Bio editing, and academic credential management.</p>
+                    </div>
+                </div>
+
+                <!-- Tile 8 -->
+                <div class="app-tile">
+                    <div class="tile-header bg-civil">
+                        <i class="fas fa-file-pdf"></i>
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" class="tile-img">
+                    </div>
+                    <div class="tile-body">
+                        <h4>Digital Certs</h4>
+                        <p>Instant honor generation. Verified PDFs for students reaching the leaderboard summit.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- LEADERBOARD PREVIEW -->
-    <section class="lb-section" id="leaderboard">
-        <div class="lb-card">
-            <h3 style="margin-bottom: 20px; color: var(--primary);">Real-Time Honor Ranks</h3>
-            <div class="lb-row">
-                <div class="rank-circle">1</div>
-                <div class="lb-avatar" style="background: url('https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
-                <div style="flex:1;"><strong>Sanu KM</strong><br><small>2,450 pts</small></div>
-                <i class="fas fa-medal" style="color: gold;"></i>
+    <!-- RELEVANT TRUTHS SECTION -->
+    <section class="truths" id="truths">
+        <h2 style="text-align:center; font-size: 3rem; color: var(--primary); font-weight:800;">Relevant Truths</h2>
+        <p style="text-align:center; color: var(--text-dim); margin-top:10px;">The logic and architecture behind the synergy.</p>
+
+        <div class="truth-grid">
+            <div class="truth-card">
+                <i class="fas fa-fingerprint"></i>
+                <h3>AuthGate Protocol</h3>
+                <p>ClassSync implements a robust AuthGate logic. It seamlessly checks Firebase authStateChanges to route users either to Role Selection or their persistent Dashboard based on cached credentials.</p>
             </div>
-            <div class="lb-row">
-                <div class="rank-circle" style="background: #94a3b8;">2</div>
-                <div class="lb-avatar" style="background: url('https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
-                <div style="flex:1;"><strong>Rahul Verma</strong><br><small>2,100 pts</small></div>
-                <i class="fas fa-medal" style="color: silver;"></i>
+            <div class="truth-card">
+                <i class="fas fa-database"></i>
+                <h3>Dynamic Firestore Streams</h3>
+                <p>Your library is powered by high-speed Firestore Query Snapshots. It filters materials by Department and Semester in real-time, ensuring zero-latency resource searching.</p>
             </div>
-            <div class="lb-row">
-                <div class="rank-circle" style="background: #b45309;">3</div>
-                <div class="lb-avatar" style="background: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80') center/cover;"></div>
-                <div style="flex:1;"><strong>Priya Patel</strong><br><small>1,980 pts</small></div>
-                <i class="fas fa-medal" style="color: #cd7f32;"></i>
+            <div class="truth-card">
+                <i class="fas fa-bell"></i>
+                <h3>Cloud Messaging (FCM)</h3>
+                <p>ClassSync utilizes Firebase Messaging for foreground and background notifications. Faculty announcements and Mailbox alerts reach students instantly across Android and Windows.</p>
             </div>
-        </div>
-        <div>
-            <h2 style="font-size: 2.8rem; margin-bottom: 20px;">The Verified <span style="color:var(--primary);">Honors</span> System</h2>
-            <p style="color: var(--text-dim); line-height: 1.8;">Contribute study materials, help peers in the forum, and earn honor scores. Once you reach the top of the leaderboard, ClassSync generates an <strong>Official PDF Certificate</strong> verifiable by your institution.</p>
-            <div style="margin-top: 30px; display: flex; gap: 20px;">
-                <div style="text-align: center;"><h3 style="color: var(--primary);">200+</h3><small>Materials</small></div>
-                <div style="text-align: center;"><h3 style="color: var(--primary);">Instant</h3><small>Verification</small></div>
+            <div class="truth-card">
+                <i class="fas fa-user-shield"></i>
+                <h3>Teacher ID Request</h3>
+                <p>Teachers aren't just registered; they're verified. Our system creates a secure request document in Firestore, requiring admin approval before faculty tools are unlocked.</p>
+            </div>
+            <div class="truth-card">
+                <i class="fas fa-code-branch"></i>
+                <h3>Multi-Platform Persistence</h3>
+                <p>Designed for Android, Web, and Windows. We use Platform-aware logic and SharedPreferences to maintain user sessions and theme settings (Dark/Light mode) permanently.</p>
+            </div>
+            <div class="truth-card">
+                <i class="fas fa-file-export"></i>
+                <h3>In-App Preview Engine</h3>
+                <p>Supports PDF, Images, and Documents. ClassSync intelligently decides between an in-app image viewer or an external application launch for seamless file reading.</p>
             </div>
         </div>
     </section>
 
     <!-- TERMINAL SECTION -->
-    <section class="terminal-wrap">
+    <section class="terminal-wrap" id="dev">
         <div class="terminal">
-            <div class="t-head">
-                <div class="t-dot" style="background: #ff5f56;"></div>
-                <div class="t-dot" style="background: #ffbd2e;"></div>
-                <div class="t-dot" style="background: #27c93f;"></div>
-                <span style="color: #94a3b8; font-size: 0.7rem; margin-left: 10px;">class-sync-cloud-engine</span>
+            <div class="t-bar">
+                <div class="t-dot" style="background:#ff5f56;"></div>
+                <div class="t-dot" style="background:#ffbd2e;"></div>
+                <div class="t-dot" style="background:#27c93f;"></div>
+                <span style="color:#6e7681; margin-left:10px; font-size:0.75rem;">class_sync_engine.dart — 128kb</span>
             </div>
-            <div class="t-body" id="terminal">
-                <div>[SYSTEM] Initializing ClassSync v1.0.2...</div>
-                <div>[AUTH] Firebase handshake successful.</div>
-                <div>[DATA] Syncing Student Library for Branch: CS...</div>
-                <div>[PUSH] New Honor Score detected (+50 pts)</div>
-                <div>[CERT] Digital Honor PDF generated for UID: SANU_01</div>
+            <div class="t-body" id="t-content">
+                <div>[AUTH] Handshake started...</div>
+                <div>[SYSTEM] Firebase Auth session persisted.</div>
+                <div>[LOAD] Fetching content for branch: COMPUTER_SCIENCE</div>
+                <div>[FCM] Notification listener initialized.</div>
+                <div>[SYNC] Syncing Honor Scores for UID: SANU_001</div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
-        <div class="footer-logo">ClassSync</div>
+        <a href="#" class="footer-logo">ClassSync</a>
         <div class="footer-links">
-            <a href="#">Home</a>
-            <a href="mailto:sanukmpro@gmail.com">Contact Support</a>
+            <a href="#">Launch Hub</a>
+            <a href="#">Android Release</a>
+            <a href="mailto:sanukmpro@gmail.com">Developer Support</a>
             <a href="https://drive.google.com/file/d/17bnLVwGuq52Df73aMqeqQylUk1V5Baqr/view?usp=sharing">Privacy Policy</a>
-            <a href="#">Teacher ID Request</a>
+            <a href="#">Teacher ID Portal</a>
         </div>
         <div class="copyright">
-            © 2026 ClassSync. Engineered for Global Academic Standards.
+            © 2026 ClassSync. Engineered with Passion for Global Academic Standards.
         </div>
     </footer>
 
     <script>
-        // --- TERMINAL SIMULATOR ---
-        const terminal = document.getElementById('terminal');
+        // Terminal Simulator
+        const t = document.getElementById('t-content');
         const logs = [
-            "Updating department leaderboard...",
-            "New material approved: AI_Module_02.pdf",
-            "Broadcasting forum update to CS Branch...",
-            "Encrypting verified honor certificate...",
-            "Syncing mailbox notifications...",
-            "Checking for version updates v1.0.3..."
+            "Syncing Firestore stream: contents/computerscience...",
+            "New Mailbox notification sent to Student_04",
+            "Broadcasting Honor Score update: +50 pts",
+            "Teacher verification request sent to admin...",
+            "Encrypting verified certificate: CS_CERT_102",
+            "Updating department leaderboard (Top 10)...",
+            "Platform persistence: Session valid for 30 days."
         ];
-        let i = 0;
+        let idx = 0;
         setInterval(() => {
-            const line = document.createElement('div');
-            line.textContent = `[SYNC] ${logs[i % logs.length]}`;
-            terminal.appendChild(line);
-            i++;
-            if(terminal.children.length > 12) terminal.removeChild(terminal.firstChild);
+            const div = document.createElement('div');
+            div.textContent = `[SYNC] ${logs[idx % logs.length]}`;
+            t.appendChild(div);
+            idx++;
+            if (t.children.length > 12) t.removeChild(t.firstChild);
         }, 2500);
 
-        // --- HORIZONTAL SLIDER AUTO-DRIVE ---
-        const slider = document.getElementById('slider');
-        let isHovered = false;
-        slider.onmouseenter = () => isHovered = true;
-        slider.onmouseleave = () => isHovered = false;
+        // Giant Slider Logic
+        const track = document.getElementById('track');
+        let currentPos = 0;
+        function slideUI(amt) {
+            currentPos += amt;
+            if (currentPos > 0) currentPos = 0;
+            const max = -(track.scrollWidth - window.innerWidth);
+            if (currentPos < max) currentPos = max;
+            track.style.transform = `translateX(${currentPos}px)`;
+        }
 
+        // Auto-drift gallery
+        let isHovered = false;
+        track.onmouseenter = () => isHovered = true;
+        track.onmouseleave = () => isHovered = false;
         setInterval(() => {
-            if(!isHovered) {
-                slider.scrollLeft += 1;
-                if (slider.scrollLeft >= slider.scrollWidth - slider.clientWidth) {
-                    slider.scrollLeft = 0;
-                }
-            }
+            if(!isHovered) slideUI(-1);
         }, 30);
     </script>
 </body>
