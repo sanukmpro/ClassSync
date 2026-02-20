@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClassSync | Ultra Academic Synergy</title>
+    <title>ClassSync | The Zenith of Academic Synergy</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.4);
-            --secondary: #a855f7;
-            --bg: #030712;
-            --card-bg: rgba(15, 23, 42, 0.6);
-            --border: rgba(255, 255, 255, 0.1);
+            --p: #6366f1; /* Primary Indigo */
+            --s: #a855f7; /* Secondary Purple */
+            --a: #f59e0b; /* Amber Accent */
+            --bg: #020617;
+            --surface: rgba(15, 23, 42, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
             --text: #f8fafc;
             --text-dim: #94a3b8;
+            --glow: rgba(99, 102, 241, 0.5);
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
         }
 
+        /* --- GLOBAL RESET --- */
         * {
             margin: 0;
             padding: 0;
@@ -33,62 +38,100 @@
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
+            scrollbar-width: thin;
+            scrollbar-color: var(--p) var(--bg);
         }
 
-        /* --- Ambient Background --- */
-        #cursor-glow {
-            position: fixed;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.5s ease;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--p); border-radius: 10px; }
 
-        .mesh-bg {
+        /* --- BACKGROUND ENGINE --- */
+        .universe {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.15) 0px, transparent 50%);
-            z-index: -1;
+            z-index: -2;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%);
         }
 
-        /* --- Navigation --- */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.3;
+            transition: all 2s var(--ease);
+        }
+
+        .orb-1 { width: 600px; height: 600px; background: var(--p); top: -10%; left: -10%; animation: float 20s infinite alternate; }
+        .orb-2 { width: 500px; height: 500px; background: var(--s); bottom: -10%; right: -10%; animation: float 25s infinite alternate-reverse; }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 50px) scale(1.2); }
+        }
+
+        /* --- NAVIGATION --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 8%;
+            padding: 20px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(3, 7, 18, 0.8);
-            backdrop-filter: blur(20px);
+            background: rgba(2, 6, 23, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
             z-index: 1000;
             border-bottom: 1px solid var(--border);
         }
 
-        .logo {
+        .logo-group {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+            text-decoration: none;
+            color: white;
             font-weight: 800;
             font-size: 1.6rem;
-            color: #fff;
-            text-decoration: none;
             letter-spacing: -1px;
         }
 
-        .logo img { height: 42px; border-radius: 10px; }
+        .logo-group img {
+            height: 45px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px var(--glow);
+        }
 
-        /* --- Hero --- */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--p); }
+
+        .btn-nav {
+            padding: 12px 24px;
+            background: var(--p);
+            color: white !important;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px -5px var(--glow);
+        }
+
+        /* --- HERO SECTION --- */
         header {
             min-height: 100vh;
             display: flex;
@@ -96,101 +139,187 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 150px 8% 100px;
+            padding: 150px 6% 100px;
+            position: relative;
         }
 
-        .badge {
+        .hero-badge {
             background: rgba(99, 102, 241, 0.1);
-            border: 1px solid var(--primary);
-            padding: 6px 18px;
+            border: 1px solid var(--p);
+            padding: 8px 20px;
             border-radius: 100px;
-            font-size: 0.8rem;
-            color: var(--primary);
+            color: var(--p);
             font-weight: 700;
-            margin-bottom: 25px;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
         }
 
         h1 {
-            font-size: clamp(3.5rem, 9vw, 6.5rem);
-            line-height: 1;
+            font-size: clamp(3.5rem, 10vw, 7.5rem);
             font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -5px;
             margin-bottom: 30px;
-            letter-spacing: -4px;
         }
 
         h1 span {
-            background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+            background: linear-gradient(135deg, #fff 0%, var(--text-dim) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--p), var(--s));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-sub {
+            font-size: 1.3rem;
             color: var(--text-dim);
-            font-size: 1.25rem;
-            max-width: 600px;
-            margin-bottom: 40px;
+            max-width: 650px;
+            margin-bottom: 50px;
+            font-weight: 400;
         }
 
-        /* --- Gallery Section --- */
-        .showcase-section {
+        .cta-stack {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-btn {
+            padding: 20px 45px;
+            border-radius: 18px;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+            transition: all 0.4s var(--ease);
+        }
+
+        .btn-primary {
+            background: var(--p);
+            color: white;
+            box-shadow: 0 25px 50px -12px var(--glow);
+        }
+
+        .btn-primary:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 35px 70px -12px var(--glow); }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: white;
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover { background: var(--border); }
+
+        /* --- INTERACTIVE GALLERY ENGINE --- */
+        .gallery-zenith {
             padding: 100px 0;
             position: relative;
-        }
-
-        .gallery-container {
-            position: relative;
-            width: 100%;
             overflow: hidden;
-            padding: 50px 0;
         }
 
-        .gallery-track {
+        .gallery-header {
+            padding: 0 6%;
+            margin-bottom: 60px;
             display: flex;
-            gap: 30px;
-            padding: 0 50px;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .section-tag {
+            font-weight: 800;
+            color: var(--p);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .gallery-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-impulse {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-impulse:hover {
+            background: var(--p);
+            border-color: var(--p);
+            transform: scale(1.1);
+        }
+
+        .slider-wrap {
+            padding: 40px 0;
             cursor: grab;
-            user-select: none;
+            active: grabbing;
+        }
+
+        .slider-track {
+            display: flex;
+            gap: 40px;
+            padding: 0 6%;
             will-change: transform;
         }
 
-        .ui-card {
-            width: 320px;
-            height: 600px;
+        .phone-frame {
+            width: 340px;
+            height: 680px;
             flex-shrink: 0;
             background: #000;
-            border-radius: 40px;
-            border: 8px solid #1e293b;
+            border-radius: 50px;
+            border: 10px solid #1e293b;
             position: relative;
             overflow: hidden;
-            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.6);
+            transition: 0.6s var(--ease);
         }
 
-        /* --- Preview Image Logic --- */
-        .card-img {
+        /* --- PREVIEW OVERLAY ENGINE --- */
+        .preview-img {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transform: scale(1.1);
-            transition: all 0.6s ease;
+            transform: scale(1.15);
+            transition: 0.8s var(--ease);
             z-index: 1;
         }
 
-        .card-overlay {
+        .ui-mask {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.95) 90%);
+            background: linear-gradient(to bottom, transparent 20%, rgba(2, 6, 23, 0.95));
             z-index: 2;
             opacity: 0;
-            transition: 0.4s;
+            transition: 0.5s;
         }
 
-        .card-content {
+        .content-layer {
             position: relative;
             z-index: 3;
             height: 100%;
@@ -200,239 +329,524 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            transition: 0.5s;
+            transition: 0.5s var(--ease);
         }
 
-        .ui-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-20px);
+        .phone-frame:hover {
+            transform: translateY(-30px) rotateX(5deg);
+            border-color: var(--p);
         }
 
-        .ui-card:hover .card-img { opacity: 1; transform: scale(1); }
-        .ui-card:hover .card-overlay { opacity: 1; }
-        .ui-card:hover .card-content { justify-content: flex-end; transform: translateY(-10px); }
-        .ui-card:hover .card-content i { opacity: 0; transform: translateY(-20px); }
+        .phone-frame:hover .preview-img { opacity: 1; transform: scale(1); }
+        .phone-frame:hover .ui-mask { opacity: 1; }
+        .phone-frame:hover .content-layer { justify-content: flex-end; padding-bottom: 60px; }
+        .phone-frame:hover .content-layer i { opacity: 0; transform: translateY(-20px); }
 
-        .card-content i {
-            font-size: 4rem;
-            color: var(--primary);
-            margin-bottom: 20px;
+        .content-layer i {
+            font-size: 5rem;
+            color: var(--p);
+            margin-bottom: 25px;
             transition: 0.4s;
+            filter: drop-shadow(0 0 15px var(--glow));
         }
 
-        /* --- Fast Nav Arrows --- */
-        .nav-ctrl {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 70px;
-            height: 70px;
-            background: rgba(255, 255, 255, 0.05);
+        .phone-frame h3 { font-size: 1.8rem; margin-bottom: 10px; font-weight: 800; }
+        .phone-frame p { font-size: 0.95rem; color: var(--text-dim); }
+
+        /* --- DEPT THEMED CARDS --- */
+        .dept-cs { background: linear-gradient(135deg, #1e1b4b, #312e81); }
+        .dept-mech { background: linear-gradient(135deg, #451a03, #78350f); }
+        .dept-civil { background: linear-gradient(135deg, #064e3b, #065f46); }
+        .dept-social { background: linear-gradient(135deg, #4c1d95, #581c87); }
+
+        /* --- TERMINAL SIMULATION --- */
+        .terminal-section {
+            padding: 120px 6%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .terminal-window {
+            background: #000;
+            border-radius: 16px;
             border: 1px solid var(--border);
-            backdrop-filter: blur(15px);
-            border-radius: 50%;
-            color: #fff;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .terminal-header {
+            background: #1e293b;
+            padding: 12px 20px;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 100;
-            transition: 0.3s;
+            gap: 8px;
         }
 
-        .nav-ctrl:hover {
-            background: var(--primary);
-            border-color: var(--primary);
-            box-shadow: 0 0 30px var(--primary-glow);
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .amber { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-body {
+            padding: 25px;
+            height: 400px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            color: #10b981;
         }
 
-        .prev-ctrl { left: 30px; }
-        .next-ctrl { right: 30px; }
+        .cursor { display: inline-block; width: 8px; height: 18px; background: #10b981; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        /* --- Buttons --- */
-        .btn-row { display: flex; gap: 20px; }
-        .btn {
-            padding: 18px 35px;
-            border-radius: 18px;
-            text-decoration: none;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: 0.3s;
+        /* --- LEADERBOARD & PROFILE VIEW --- */
+        .profile-scanner {
+            padding: 120px 6%;
+            background: radial-gradient(circle at right, rgba(99, 102, 241, 0.05), transparent);
         }
-        .btn-p { background: var(--primary); color: #fff; box-shadow: 0 15px 30px -10px var(--primary-glow); }
-        .btn-p:hover { transform: scale(1.05); }
-        .btn-s { background: var(--card-bg); color: #fff; border: 1px solid var(--border); }
-        .btn-s:hover { background: var(--border); }
 
-        /* --- Footer --- */
-        footer {
-            padding: 100px 8% 50px;
-            background: #010409;
+        .glass-profile {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .profile-side {
+            background: rgba(255,255,255,0.02);
+            padding: 50px;
             text-align: center;
-            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
         }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: 1s ease; }
+        .avatar-frame {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--p);
+            margin: 0 auto 20px;
+            padding: 5px;
+            position: relative;
+        }
+
+        .avatar-frame img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--p);
+            box-shadow: 0 0 15px var(--p);
+            animation: scan 3s infinite linear;
+        }
+
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        .honor-pill {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--p);
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            margin-top: 15px;
+        }
+
+        .profile-main { padding: 50px; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .stat-card h4 { font-size: 1.8rem; color: var(--p); }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 100px 6% 50px;
+            border-top: 1px solid var(--border);
+            background: #010409;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 80px;
+        }
+
+        .footer-about p { color: var(--text-dim); margin-top: 20px; max-width: 350px; }
+        .footer-col h5 { margin-bottom: 25px; font-size: 1.1rem; color: white; }
+        .footer-col a { display: block; color: var(--text-dim); text-decoration: none; margin-bottom: 15px; transition: 0.3s; }
+        .footer-col a:hover { color: var(--p); transform: translateX(5px); }
+
+        .social-row { display: flex; gap: 15px; margin-top: 20px; }
+        .social-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover { background: var(--p); transform: translateY(-5px); }
+
+        .bottom-bar {
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .terminal-section, .footer-grid { grid-template-columns: 1fr; }
+            .glass-profile { grid-template-columns: 1fr; }
+            .profile-side { border-right: none; border-bottom: 1px solid var(--border); }
+            h1 { font-size: 4rem; }
+        }
+
+        /* Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s var(--ease); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Hide Scrollbar */
-        .gallery-container::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body>
 
-    <div id="cursor-glow"></div>
-    <div class="mesh-bg"></div>
+    <!-- BACKGROUND ENGINE -->
+    <div class="universe">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
 
+    <!-- NAVIGATION -->
     <nav>
-        <a href="#" class="logo">
+        <a href="#" class="logo-group">
             <img src="app_icon.png" alt="ClassSync">
             <span>ClassSync</span>
         </a>
-        <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-p" style="padding: 10px 25px; font-size: 0.9rem;">Download APK</a>
+        <div class="nav-links">
+            <a href="#features">Ecosystem</a>
+            <a href="#honors">Leaderboard</a>
+            <a href="#dev">Terminal</a>
+            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn-nav">Get APK</a>
+        </div>
     </nav>
 
+    <!-- HERO -->
     <header>
-        <div class="badge">Next-Gen Academic Hub</div>
-        <h1>Synergy for <br><span>Scholars.</span></h1>
-        <p class="hero-sub">The all-in-one platform for students and educators to share, rank, and verify excellence. Version 1.0.2 is here.</p>
-        <div class="btn-row">
-            <a href="https://class-sync-eb06a.web.app/" class="btn btn-p"><i class="fas fa-bolt"></i> Web Portal</a>
-            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="btn btn-s"><i class="fab fa-android"></i> Android</a>
+        <div class="hero-badge">Zenith Release v1.0.2</div>
+        <h1><span>Academic Synergy,</span><br><span class="gradient-text">Mastered.</span></h1>
+        <p class="hero-sub">Collaborate across departments, dominate the honors leaderboard, and secure verified certificates in the ultimate scholar's ecosystem.</p>
+        <div class="cta-stack">
+            <a href="https://class-sync-eb06a.web.app/" class="hero-btn btn-primary">
+                <i class="fas fa-bolt"></i> Launch Portal
+            </a>
+            <a href="https://drive.google.com/file/d/1542W531GOOm_-QKJIgNIVmeeOOFcwns1/view?usp=sharing" class="hero-btn btn-secondary">
+                <i class="fab fa-android"></i> Android v1.02
+            </a>
         </div>
     </header>
 
-    <section class="showcase-section reveal">
-        <h2 style="text-align: center; font-size: 3rem; margin-bottom: 50px;">The Interface</h2>
-        
-        <div class="nav-ctrl prev-ctrl" id="prevBtn"><i class="fas fa-arrow-left"></i></div>
-        <div class="nav-ctrl next-ctrl" id="nextBtn"><i class="fas fa-arrow-right"></i></div>
+    <!-- UI SLIDER SECTION -->
+    <section class="gallery-zenith" id="features">
+        <div class="gallery-header reveal">
+            <div>
+                <span class="section-tag">Interface Showcase</span>
+                <h2 style="font-size: 3rem; font-weight: 800;">Experience the <span class="gradient-text">Sync UI</span></h2>
+            </div>
+            <div class="gallery-nav">
+                <div class="nav-impulse" id="prevSlide"><i class="fas fa-chevron-left"></i></div>
+                <div class="nav-impulse" id="nextSlide"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
 
-        <div class="gallery-container" id="scrollContainer">
-            <div class="gallery-track" id="galleryTrack">
-                <!-- Screen 1 -->
-                <div class="ui-card">
-                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Student Home">
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
-                        <i class="fas fa-home"></i>
+        <div class="slider-wrap">
+            <div class="slider-track" id="sliderTrack">
+                <!-- UI Card 1 -->
+                <div class="phone-frame dept-cs">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" class="preview-img">
+                    <div class="ui-mask"></div>
+                    <div class="content-layer">
+                        <i class="fas fa-house-chimney-user"></i>
                         <h3>Student Home</h3>
-                        <p>Access department resources and global library instantly.</p>
+                        <p>Your centralized hub for department resources, library access, and global search.</p>
                     </div>
                 </div>
-                <!-- Screen 2 -->
-                <div class="ui-card">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Teacher Hub">
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                        <h3>Faculty Portal</h3>
-                        <p>Exclusive hub for content verification and student management.</p>
+                <!-- UI Card 2 -->
+                <div class="phone-frame dept-mech">
+                    <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80" class="preview-img">
+                    <div class="ui-mask"></div>
+                    <div class="content-layer">
+                        <i class="fas fa-chalkboard-user"></i>
+                        <h3>Teacher Portal</h3>
+                        <p>Exclusive toolkit for educators to manage content and verify student contributions.</p>
                     </div>
                 </div>
-                <!-- Screen 3 -->
-                <div class="ui-card">
-                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Leaderboard">
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
+                <!-- UI Card 3 -->
+                <div class="phone-frame dept-civil">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80" class="preview-img">
+                    <div class="ui-mask"></div>
+                    <div class="content-layer">
                         <i class="fas fa-trophy"></i>
                         <h3>Leaderboard</h3>
-                        <p>Rise to the top. Claim your digital honors based on contribution.</p>
+                        <p>Real-time department rankings based on honor scores and academic activity.</p>
                     </div>
                 </div>
-                <!-- Screen 4 -->
-                <div class="ui-card">
-                    <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Community Forum">
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
+                <!-- UI Card 4 -->
+                <div class="phone-frame dept-social">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80" class="preview-img">
+                    <div class="ui-mask"></div>
+                    <div class="content-layer">
                         <i class="fas fa-comments"></i>
                         <h3>Community Forum</h3>
-                        <p>Solve doubts in real-time with department-wise Q&A threads.</p>
+                        <p>Engage in collaborative Q&A threads with students from all departments.</p>
                     </div>
                 </div>
-                <!-- Screen 5 -->
-                <div class="ui-card">
-                    <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?auto=format&fit=crop&w=600&q=80" class="card-img" alt="Mailbox">
-                    <div class="card-overlay"></div>
-                    <div class="card-content">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Student Mailbox</h3>
-                        <p>Integrated notification system for updates and approvals.</p>
+                <!-- UI Card 5 -->
+                <div class="phone-frame dept-cs">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" class="preview-img">
+                    <div class="ui-mask"></div>
+                    <div class="content-layer">
+                        <i class="fas fa-envelope-open-text"></i>
+                        <h3>Mailbox</h3>
+                        <p>Stay updated with instant notifications for content approvals and messages.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="logo" style="justify-content: center; margin-bottom: 20px;">
-            <img src="app_icon.png" alt="ClassSync">
-            <span>ClassSync</span>
+    <!-- TERMINAL SECTION -->
+    <section class="terminal-section reveal" id="dev">
+        <div>
+            <span class="section-tag">Backend Architecture</span>
+            <h2 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 25px;">Engineered with <span class="gradient-text">Precision.</span></h2>
+            <p style="color: var(--text-dim); font-size: 1.1rem; line-height: 1.8;">
+                ClassSync utilizes a high-performance Firebase backbone, providing millisecond synchronization for study materials. Our proprietary Honor Algorithm calculates academic contribution to ensure a fair and competitive leaderboard across all branches.
+            </p>
+            <div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div style="padding: 20px; border-left: 3px solid var(--p); background: rgba(255,255,255,0.02);">
+                    <h4 style="color: white; margin-bottom: 5px;">Secure Auth</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">Firebase identity verification for all accounts.</p>
+                </div>
+                <div style="padding: 20px; border-left: 3px solid var(--s); background: rgba(255,255,255,0.02);">
+                    <h4 style="color: white; margin-bottom: 5px;">Cloud Sync</h4>
+                    <p style="font-size: 0.9rem; color: var(--text-dim);">Instant material propagation across the globe.</p>
+                </div>
+            </div>
         </div>
-        <p style="color: var(--text-dim); margin-bottom: 30px;">Engineered for Academic Excellence. &copy; 2026</p>
-        <div style="display: flex; justify-content: center; gap: 20px;">
-            <a href="mailto:sanukmpro@gmail.com" style="color:#fff; text-decoration:none;">Support</a>
-            <a href="https://drive.google.com/file/d/17bnLVwGuq52Df73aMqeqQylUk1V5Baqr/view?usp=sharing" style="color:#fff; text-decoration:none;">Privacy</a>
+
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot amber"></div>
+                <div class="dot green"></div>
+                <span style="margin-left: 10px; color: #64748b; font-size: 0.8rem;">ClassSync-Node-Service</span>
+            </div>
+            <div class="terminal-body" id="terminal">
+                <div>> Initializing ClassSync Cloud Engine...</div>
+                <div>> Handshake with Firebase established.</div>
+                <div>> Listening for academic contributions...</div>
+                <div class="cursor"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFILE PREVIEW -->
+    <section class="profile-scanner reveal" id="honors">
+        <div style="text-align: center; margin-bottom: 70px;">
+            <span class="section-tag">Honors System</span>
+            <h2 style="font-size: 3.5rem; font-weight: 800;">Your Academic <span class="gradient-text">Legacy.</span></h2>
+        </div>
+
+        <div class="glass-profile">
+            <div class="profile-side">
+                <div class="avatar-frame">
+                    <div class="scan-line"></div>
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80">
+                </div>
+                <h3 style="font-size: 1.5rem; margin-bottom: 5px;">Sanu KM</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">Computer Science Dept</p>
+                <div class="honor-pill">Elite Contributor</div>
+            </div>
+            <div class="profile-main">
+                <h4 style="font-size: 1.4rem; margin-bottom: 10px;">Academic Stats</h4>
+                <p style="color: var(--text-dim);">Track your growth, certificates, and leaderboard position in real-time.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim);">Honor Score</span>
+                        <h4>2,450</h4>
+                    </div>
+                    <div class="stat-card">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim);">Global Rank</span>
+                        <h4>#01</h4>
+                    </div>
+                    <div class="stat-card">
+                        <span style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim);">Resources</span>
+                        <h4>42</h4>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; padding: 25px; background: rgba(99, 102, 241, 0.1); border-radius: 20px; border: 1px solid var(--p);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h5 style="color: white; font-size: 1.1rem;">Verified Certification</h5>
+                            <p style="font-size: 0.85rem; color: var(--text-dim);">Top performers receive downloadable PDF honors.</p>
+                        </div>
+                        <i class="fas fa-file-pdf" style="font-size: 2rem; color: var(--p);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-about">
+                <a href="#" class="logo-group">
+                    <img src="app_icon.png" alt="ClassSync">
+                    <span>ClassSync</span>
+                </a>
+                <p>Developing high-performance tools for the academic elite. We synergize learning through technology.</p>
+                <div class="social-row">
+                    <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h5>Platform</h5>
+                <a href="#">Launch Web App</a>
+                <a href="#">Android Release</a>
+                <a href="#">Teacher Center</a>
+                <a href="#">Documentation</a>
+            </div>
+            <div class="footer-col">
+                <h5>Resources</h5>
+                <a href="#">Support Ticket</a>
+                <a href="#">Community Forum</a>
+                <a href="#">Developer API</a>
+                <a href="#">Sponsorship</a>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <a href="https://drive.google.com/file/d/17bnLVwGuq52Df73aMqeqQylUk1V5Baqr/view?usp=sharing">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">License Agreement</a>
+                <a href="#">Security</a>
+            </div>
+        </div>
+        <div class="bottom-bar">
+            <p>© 2026 ClassSync. Engineered with Passion for Excellence.</p>
+            <p>v1.0.2 Stable Release</p>
         </div>
     </footer>
 
     <script>
-        // --- High Performance Scroll Engine ---
-        const track = document.getElementById('galleryTrack');
-        const nextBtn = document.getElementById('nextBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        
-        let currentScroll = 0;
-        let targetScroll = 0;
-        let isHovering = false;
-        const autoSpeed = 0.5; // Auto-drift speed
+        // --- 1. VELOCITY SCROLL ENGINE ---
+        const track = document.getElementById('sliderTrack');
+        const next = document.getElementById('nextSlide');
+        const prev = document.getElementById('prevSlide');
 
-        // Manual Navigation
-        nextBtn.addEventListener('click', () => {
-            targetScroll -= 350; // Skip distance
+        let currentX = 0;
+        let targetX = 0;
+        let isDragging = false;
+        let startX = 0;
+
+        // Auto-Drift
+        let autoDrift = -0.5;
+
+        next.addEventListener('click', () => targetX -= 400);
+        prev.addEventListener('click', () => targetX += 400);
+
+        // Drag Logic
+        track.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - track.offsetLeft;
+            track.style.cursor = 'grabbing';
         });
 
-        prevBtn.addEventListener('click', () => {
-            targetScroll += 350;
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            track.style.cursor = 'grab';
         });
 
-        // Loop & Velocity Logic
-        function animate() {
-            if (!isHovering) {
-                targetScroll -= autoSpeed;
-            }
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 2;
+            targetX += walk * 0.05;
+        });
 
-            // Lerp (Linear Interpolation) for smoothness
-            currentScroll += (targetScroll - currentScroll) * 0.1;
+        function engine() {
+            if (!isDragging) targetX += autoDrift;
             
-            // Boundary loop logic
-            const trackWidth = track.scrollWidth / 2;
-            if (Math.abs(currentScroll) > trackWidth) {
-                currentScroll = 0;
-                targetScroll = 0;
+            // Lerp
+            currentX += (targetX - currentX) * 0.1;
+            
+            // Seamless Loop logic
+            if (Math.abs(currentX) > track.scrollWidth / 1.5) {
+                currentX = 0;
+                targetX = 0;
             }
 
-            track.style.transform = `translateX(${currentScroll}px)`;
-            requestAnimationFrame(animate);
+            track.style.transform = `translateX(${currentX}px)`;
+            requestAnimationFrame(engine);
         }
+        engine();
 
-        // Hover handling to pause auto-drift
-        track.addEventListener('mouseenter', () => isHovering = true);
-        track.addEventListener('mouseleave', () => isHovering = false);
+        // --- 2. TERMINAL SIMULATOR ---
+        const terminal = document.getElementById('terminal');
+        const logs = [
+            "> Pushing update to Node Cluster...",
+            "> Database optimization: 100% complete",
+            "> Syncing department nodes...",
+            "> New Honor Score detected: +50 pts",
+            "> Generating verified certificate for UID: SYNC-01",
+            "> Fetching recent study materials...",
+            "> AES-256 Encryption active.",
+            "> Synergy metrics: Optimal."
+        ];
+        let logIdx = 0;
 
-        // Start engine
-        animate();
+        setInterval(() => {
+            const line = document.createElement('div');
+            line.textContent = logs[logIdx % logs.length];
+            terminal.insertBefore(line, terminal.lastElementChild);
+            logIdx++;
+            if (terminal.children.length > 15) terminal.removeChild(terminal.firstChild);
+            terminal.scrollTop = terminal.scrollHeight;
+        }, 2000);
 
-        // --- Mouse Glow ---
-        const cursor = document.getElementById('cursor-glow');
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // --- Reveal Logic ---
+        // --- 3. REVEAL ENGINE ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
@@ -440,6 +854,7 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
     </script>
 </body>
 </html>
